@@ -9,6 +9,15 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+
+/**
+ * Some javadoc. // OK
+ *
+ * @author Vuong
+ * @since 20/11/2022
+ * @deprecated Some javadoc.
+ */
+@SuppressWarnings("checkstyle:Indentation")
 @Getter
 @Setter
 @Entity
@@ -18,14 +27,14 @@ public class Subject {
     private int id;
     @Column
     @NotNull
-    @Size(max=255, message = "must be less than 255 characters")
+    @Size(max = 255, message = "must be less than 255 characters")
     private String name;
-    @JoinColumn(name = "createdAt",nullable = false, updatable = true)
+    @JoinColumn(name = "createdAt", nullable = false, updatable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date createAt;
 
-    @Column(name = "updatedAt",nullable = false, updatable = true)
+    @Column(name = "updatedAt", nullable = false, updatable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updateAt;

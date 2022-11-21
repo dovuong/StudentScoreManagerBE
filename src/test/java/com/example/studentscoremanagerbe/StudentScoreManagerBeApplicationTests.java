@@ -1,13 +1,19 @@
 package com.example.studentscoremanagerbe;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.Assert.assertTrue;
+
+
 @SpringBootTest
-class StudentScoreManagerBeApplicationTests {
+public class StudentScoreManagerBeApplicationTests {
+
+
 
     @Test
-    void contextLoads() {
+    public void contextLoads() {
+        assertTrue(true);
     }
 
 }
