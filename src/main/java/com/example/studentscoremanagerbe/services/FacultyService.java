@@ -21,11 +21,11 @@ public class FacultyService {
     public ResponseEntity<?> getAllFaculty(){
         List<Faculty> listFaculty = facultyRepository.findAll();
         if (listFaculty != null){
-            logger.info("Get all faculties ");
+            logger.info("Get all faculties successfully ");
             return ResponseEntity.ok(listFaculty);
         }
         else {
-            logger.error("List faculties are not found");
+            logger.error("Get all faculties failed. Cause by list faculties are not found");
             return ResponseEntity.ok("Faculties empty");
         }
 
@@ -39,7 +39,7 @@ public class FacultyService {
             return ResponseEntity.ok(faculty);
         }
         else {
-            logger.error("Faculty id = {} is not found",id);
+            logger.error("Get faculty failed. Cause by faculty id = {} is not found",id);
             return ResponseEntity.ok("Faculty empty");
         }
 
@@ -50,18 +50,16 @@ public class FacultyService {
         if (faculty == null){
             Faculty newFaculty = new Faculty();
             Date createDate = new Date();
-            Date delDate = null;
             newFaculty.setName(facultyRequest.getName());
             newFaculty.setCreateAt(createDate);
-            newFaculty.setDeletedAt(delDate);
-            newFaculty.setUpdateAt(delDate);
+            newFaculty.setDeletedAt(null);
+            newFaculty.setUpdateAt(null);
             facultyRepository.save(newFaculty);
             logger.info("Create faculty name = '{}'", facultyRequest.getName());
             return ResponseEntity.ok("create new faculty successfully");
-
         }
         else{
-            logger.error("Faculty name = {} is existed", facultyRequest.getName());
+            logger.error("Create faculty failed. Cause by faculty name = {} is existed", facultyRequest.getName());
             return ResponseEntity.ok("Faculty existed");
         }
     }
