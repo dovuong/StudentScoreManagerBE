@@ -1,10 +1,10 @@
 package com.example.studentscoremanagerbe.services;
 
-import com.example.studentscoremanagerbe.common.UserDetailsImpl;
 import com.example.studentscoremanagerbe.model.Role;
 import com.example.studentscoremanagerbe.model.User;
 import com.example.studentscoremanagerbe.repositories.RoleRepository;
 import com.example.studentscoremanagerbe.repositories.UserRepository;
+import common.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

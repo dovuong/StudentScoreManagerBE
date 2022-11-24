@@ -1,6 +1,9 @@
 package com.example.studentscoremanagerbe.payload.request;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
@@ -14,10 +17,14 @@ import javax.validation.constraints.Size;
 @SuppressWarnings("checkstyle:Indentation")
 public class SignupRequest {
     @NotBlank
-    @Size(max = 50)
+    @NotNull(message = "This is username")
+    @ApiModelProperty(notes = "username, this username must e more than 5 char", example = "adminserver", required = true)
+    @Size(min = 5, max = 50, message = "this username must e more than 5 char")
     private String username;
     @NotBlank
-    @Size(min = 8, max = 40)
+    @NotNull(message = "This is password, this password must e more than 8 char")
+    @ApiModelProperty(notes = "password", example = "adminserver", required = true)
+    @Size(min = 8, max = 40, message = "this password must e more than 8 char")
     private String password;
 
     public String getUsername() {

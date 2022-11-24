@@ -1,6 +1,6 @@
 package com.example.studentscoremanagerbe.security.jwt;
 
-import com.example.studentscoremanagerbe.common.UserDetailsImpl;
+import common.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
