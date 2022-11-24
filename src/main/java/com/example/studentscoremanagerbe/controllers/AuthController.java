@@ -1,7 +1,7 @@
 package com.example.studentscoremanagerbe.controllers;
 
 
-import com.example.studentscoremanagerbe.common.UserDetailsImpl;
+import common.UserDetailsImpl;
 import com.example.studentscoremanagerbe.model.User;
 import com.example.studentscoremanagerbe.payload.request.LoginRequest;
 import com.example.studentscoremanagerbe.payload.request.SignupRequest;
