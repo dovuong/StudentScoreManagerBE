@@ -9,6 +9,7 @@ import com.example.studentscoremanagerbe.payload.response.MessageResponse;
 import com.example.studentscoremanagerbe.payload.response.UserInfoResponse;
 import com.example.studentscoremanagerbe.security.jwt.JwtUtils;
 import com.example.studentscoremanagerbe.services.CustomUserDetailsService;
+import io.sentry.Sentry;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,15 +64,20 @@ public class AuthController {
     @ApiOperation (value = "20/11/2022 by Vuong : signup new account teacher")
     @PostMapping ("/create-admin")
     public ResponseEntity<?> registerAdmin(@Valid @RequestBody SignupRequest signupRequest) {
-        if (customUserDetailsService.saveAdmin(signupRequest.getUsername(),
-                                               signupRequest.getPassword()) == 1) {
-            LoginRequest loginRequest =
-                    new LoginRequest(signupRequest.getUsername(),
-                                     signupRequest.getPassword());
+        try {
+            if (customUserDetailsService.saveAdmin(signupRequest.getUsername(),
+                    signupRequest.getPassword()) == 1) {
+                LoginRequest loginRequest =
+                        new LoginRequest(signupRequest.getUsername(),
+                                signupRequest.getPassword());
 
-            return authenticateUser(loginRequest);
+                return authenticateUser(loginRequest);
+            }
+        } catch (Exception e) {
+            Sentry.captureException(e);
+        } finally {
+            return ResponseEntity.ok().body(new MessageResponse("Register failed"));
         }
-        return ResponseEntity.ok().body(new MessageResponse("Register failed"));
     }
 
     /**
@@ -86,13 +92,19 @@ public class AuthController {
     @PreAuthorize ("hasRole('ROLE_ADMIN')")
     @PostMapping ("/create-teacher")
     public ResponseEntity<?> registerTeacher(@Valid @RequestBody SignupRequest signupRequest) {
-        if (customUserDetailsService.saveTeacher(signupRequest.getUsername(), signupRequest.getPassword()) == 1) {
-            LoginRequest loginRequest =
-                    new LoginRequest(signupRequest.getUsername(),
-                                     signupRequest.getPassword());
-            return authenticateUser(loginRequest);
+        try {
+            if (customUserDetailsService.saveTeacher(signupRequest.getUsername(), signupRequest.getPassword()) == 1) {
+                LoginRequest loginRequest =
+                        new LoginRequest(signupRequest.getUsername(),
+                                signupRequest.getPassword());
+                return authenticateUser(loginRequest);
+            }
+        } catch (Exception e) {
+            Sentry.captureException(e);
+        } finally {
+            return ResponseEntity.ok().body(new MessageResponse("Register failed"));
         }
-        return ResponseEntity.ok().body(new MessageResponse("Register failed"));
+
     }
 
     /**
@@ -127,6 +139,7 @@ public class AuthController {
                     .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                     .body(new UserInfoResponse(user, jwtCookie.getValue()));
         } catch (Exception ex) {
+            Sentry.captureException(ex);
             return ResponseEntity.ok().body(new MessageResponse("Login failed"));
         }
 
