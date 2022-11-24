@@ -29,6 +29,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @since 20/11/2022
  * @deprecated Some javadoc.
  */
+@SuppressWarnings({"checkstyle:Indentation", "checkstyle:JavadocVariable"})
 @ComponentScan("com.example.studentscoremanagerbe")
 @Configuration
 @EnableWebSecurity
@@ -37,6 +38,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         // jsr250Enabled = true,
         prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
 
     @Autowired
     AuthEntryPointJwt unauthorizedHandler;
@@ -72,8 +74,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new AuthTokenFilter();
     }
 
+
     @Override
-    protected void configure(AuthenticationManagerBuilder auth)  {
+    protected void configure(final AuthenticationManagerBuilder auth)  {
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -88,6 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
+    @SuppressWarnings("checkstyle:JavadocVariable")
     private static final String[] AUTH_WHITELIST = {
         // -- Swagger UI v2
         "/v2/api-docs",

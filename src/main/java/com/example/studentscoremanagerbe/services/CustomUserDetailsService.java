@@ -1,6 +1,5 @@
 package com.example.studentscoremanagerbe.services;
 
-
 import com.example.studentscoremanagerbe.common.UserDetailsImpl;
 import com.example.studentscoremanagerbe.model.Role;
 import com.example.studentscoremanagerbe.model.User;
@@ -17,14 +16,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-/**
- * Some javadoc. // OK
- *
+/** Some javadoc. // OK
  * @author Vuong
  * @since 20/11/2022
  * @deprecated Some javadoc.
  */
-@SuppressWarnings({"checkstyle:Indentation", "checkstyle:FileTabCharacter"})
+@SuppressWarnings({"checkstyle:Indentation"})
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);

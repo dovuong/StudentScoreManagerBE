@@ -1,6 +1,7 @@
 package com.example.studentscoremanagerbe.payload.request;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 
@@ -11,7 +12,8 @@ import javax.validation.constraints.NotNull;
  * @since 20/11/2022
  * @deprecated Some javadoc.
  */
-@SuppressWarnings({"checkstyle:Indentation", "checkstyle:FileTabCharacter"})
+@Data
+@SuppressWarnings({"checkstyle:Indentation"})
 public class LoginRequest {
 	@NotNull(message = "This is username")
 	@ApiModelProperty(notes = "username", example = "adminserver", required = true)
