@@ -35,14 +35,13 @@ public class Faculty {
     @CreatedDate
     private Date createAt;
 
-    @Column(name = "updatedAt", nullable = false, updatable = true)
+    @Column(name = "updatedAt", nullable = true, updatable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updateAt;
 
 
-    @Column(name = "deletedAt", updatable = true)
-
+    @Column(name = "deletedAt",nullable = true, updatable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date deletedAt;
