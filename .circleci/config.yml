@@ -1,0 +1,23 @@
+version: 2.1
+jobs:
+  build-and-checkstyle:
+    docker:
+      - image: cimg/openjdk:11.0
+
+    steps:
+      # Checkout the code as the first step.
+      - checkout
+      # Use mvn clean and package as the standard maven build phase
+      - run:
+          name: Build
+          command: mvn -B -DskipTests clean package
+      # Then run checkstyle!
+      - run:
+          name: Checkstyle
+          command: mvn clean install
+
+workflows:
+  build-check: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
+    jobs:
+      - build-and-checkstyle
