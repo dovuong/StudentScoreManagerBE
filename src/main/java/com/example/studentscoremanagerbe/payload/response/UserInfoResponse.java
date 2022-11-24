@@ -15,6 +15,7 @@ import lombok.Setter;
 @SuppressWarnings({"checkstyle:Indentation", "checkstyle:FileTabCharacter"})
 @Getter
 @Setter
+
 public class UserInfoResponse {
 	private Integer userId;
 

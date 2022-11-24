@@ -40,10 +40,10 @@ import java.util.Objects;
 @RequestMapping ("/api/auth")
 @Api (tags = "api/auth")
 public class AuthController {
-    
+
     @Autowired
     AuthenticationManager authenticationManager;
-    
+
     @Autowired
     CustomUserDetailsService customUserDetailsService;
     
@@ -70,7 +70,8 @@ public class AuthController {
                                      signupRequest.getPassword());
 
             return authenticateUser(loginRequest);
-        }return ResponseEntity.ok().body(new MessageResponse("Register failed"));
+        }
+        return ResponseEntity.ok().body(new MessageResponse("Register failed"));
     }
 
     /**

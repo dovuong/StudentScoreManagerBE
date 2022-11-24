@@ -11,6 +11,13 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Some javadoc. // OK
+ *
+ * @author Vuong
+ * @since 20/11/2022
+ * @deprecated Some javadoc.
+ */
 @Service
 public class FacultyService {
     Logger logger = LoggerFactory.getLogger(FacultyService.class);
@@ -24,28 +31,26 @@ public class FacultyService {
             logger.info("Get all faculties successfully ");
             return ResponseEntity.ok(listFaculty);
         }
-        else {
-            logger.error("Get all faculties failed. Cause by list faculties are not found");
-            return ResponseEntity.ok("Faculties empty");
-        }
+
+        logger.error("Get all faculties failed. Cause by list faculties are not found");
+        return ResponseEntity.ok("Faculties empty");
+
 
     }
 
-    public ResponseEntity<?> getFacultyById(int id)
-    {
-        Faculty faculty= facultyRepository.findById(id);
+    public ResponseEntity<?> getFacultyById(int id) {
+        Faculty faculty = facultyRepository.findById(id);
         if (faculty != null){
-            logger.info("Get faculty id = {}",id);
+            logger.info("Get faculty id = {}", id);
             return ResponseEntity.ok(faculty);
         }
-        else {
-            logger.error("Get faculty failed. Cause by faculty id = {} is not found",id);
-            return ResponseEntity.ok("Faculty empty");
-        }
+
+        logger.error("Get faculty failed. Cause by faculty id = {} is not found", id);
+        return ResponseEntity.ok("Faculty empty");
+
 
     }
-    public ResponseEntity<?> createFaculty(FacultyRequest facultyRequest)
-    {
+    public ResponseEntity<?> createFaculty(FacultyRequest facultyRequest) {
         Faculty faculty = facultyRepository.findByName(facultyRequest.getName());
         if (faculty == null){
             Faculty newFaculty = new Faculty();
@@ -58,9 +63,8 @@ public class FacultyService {
             logger.info("Create faculty name = '{}'", facultyRequest.getName());
             return ResponseEntity.ok("create new faculty successfully");
         }
-        else{
-            logger.error("Create faculty failed. Cause by faculty name = {} is existed", facultyRequest.getName());
-            return ResponseEntity.ok("Faculty existed");
-        }
+        logger.error("Create faculty failed. Cause by faculty name = {} is existed", facultyRequest.getName());
+        return ResponseEntity.ok("Faculty existed");
+
     }
 }

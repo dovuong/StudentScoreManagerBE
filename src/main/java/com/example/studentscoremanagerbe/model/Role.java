@@ -8,7 +8,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Date;
+
 
 /**
  * Some javadoc. // OK

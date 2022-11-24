@@ -11,11 +11,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
+/**
+ * Some javadoc. // OK
+ *
+ * @author Linh
+ * @since 20/11/2022
+ * @deprecated Some javadoc.
+ */
 @CrossOrigin()
 @RestController
 @RequestMapping("/api")
-@Api( tags = "Faculty")
+@Api (tags = "Faculty")
 public class FacultyController {
     Logger logger = LoggerFactory.getLogger(FacultyController.class);
 
