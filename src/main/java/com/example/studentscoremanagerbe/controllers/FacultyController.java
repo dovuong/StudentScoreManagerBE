@@ -2,6 +2,7 @@ package com.example.studentscoremanagerbe.controllers;
 
 import com.example.studentscoremanagerbe.payload.request.FacultyRequest;
 import com.example.studentscoremanagerbe.services.FacultyService;
+import io.sentry.Sentry;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -34,6 +35,7 @@ public class FacultyController {
         try {
             return ResponseEntity.ok().body(facultyService.getAllFaculty());
         } catch (Exception e) {
+            Sentry.captureException(e);
             return ResponseEntity.ok().body(e);
         }
     }
@@ -45,6 +47,7 @@ public class FacultyController {
         try {
             return ResponseEntity.ok().body(facultyService.getFacultyById(id));
         } catch (Exception e) {
+            Sentry.captureException(e);
             return ResponseEntity.ok().body(e);
         }
     }
@@ -56,6 +59,7 @@ public class FacultyController {
         try {
             return ResponseEntity.ok(facultyService.createFaculty(facultyRequest));
         } catch (Exception e) {
+            Sentry.captureException(e);
             return ResponseEntity.ok().body(e);
         }
     }
