@@ -25,7 +25,7 @@ public class ClassroomService {
     public ResponseEntity<?> getClassRoom()
     {
         List<ClassRoom> classRooms = classRoomRepository.findAll();
-        if(classRooms==null)
+        if (classRooms == null)
         {
             logger.error("Get all classroom failed. Cause by list classroom are not found");
             return ResponseEntity.ok("List classroom empty");
@@ -39,7 +39,7 @@ public class ClassroomService {
     public ClassRoom getClassRoomById(int id)
     {
         ClassRoom classRooms = classRoomRepository.findClassRoomById(id);
-        if(classRooms==null)
+        if (classRooms == null)
         {
             logger.error("Get classroom failed. Cause by list classroom are not found");
             return null;
@@ -53,7 +53,7 @@ public class ClassroomService {
     public ResponseEntity<?> getClassRoomByFaculty(int idFaculty)
     {
         List<ClassRoom> classRooms = classRoomRepository.findAllByFacultyId(idFaculty);
-        if(classRooms==null)
+        if (classRooms == null)
         {
             logger.error("Get all classroom failed. Cause by list classroom are not found");
             return ResponseEntity.ok("List classroom empty");
@@ -66,21 +66,21 @@ public class ClassroomService {
     }
     public ResponseEntity<?> createClassRoom(ClassroomRequest classRoomRequest)
     {
-        Faculty  faculty= facultyService.getFacultyById1(classRoomRequest.getIdFaculty());
-        if(faculty==null)
+        Faculty  faculty = facultyService.getFacultyById1(classRoomRequest.getIdFaculty());
+        if (faculty == null)
         {
             logger.error("Get create failed. Cause by list faculty are not found");
             return ResponseEntity.ok("List  faculty  empty");
         }
         else
         {
-           ClassRoom classRoom= classRoomRepository.findClassRoomByName(classRoomRequest.getNameClassRoom());
-           if(classRoom==null)
+           ClassRoom classRoom = classRoomRepository.findClassRoomByName(classRoomRequest.getNameClassRoom());
+           if (classRoom == null)
            {
-               ClassRoom classRoom1= new ClassRoom();
+               ClassRoom classRoom1 = new ClassRoom();
                classRoom1.setName(classRoomRequest.getNameClassRoom());
                classRoom1.setFaculty(faculty);
-               ClassRoom classRoom2=  classRoomRepository.save(classRoom1);
+               ClassRoom classRoom2 =  classRoomRepository.save(classRoom1);
                logger.info("Create classroom name = '{}'", classRoom2.getName());
                return ResponseEntity.ok("create new classroom successfully");
            }
@@ -89,20 +89,20 @@ public class ClassroomService {
     }
     public ResponseEntity<?> updateClassRoom(UpdateClassroomRequest updateClassroomRequest)
     {
-        Faculty  faculty= facultyService.getFacultyById1(updateClassroomRequest.getIdFaculty());
-        if(faculty==null)
+        Faculty  faculty = facultyService.getFacultyById1(updateClassroomRequest.getIdFaculty());
+        if (faculty == null)
         {
             logger.error("update failed. Cause by list faculty are not found");
             return ResponseEntity.ok("List faculty empty");
         }
         else
         {
-            ClassRoom classRoom1= classRoomRepository.findClassRoomByNameAndFacultyId(updateClassroomRequest.getNameClassRoom(), updateClassroomRequest.getIdFaculty());
-            if(classRoom1!=null)
+            ClassRoom classRoom1 = classRoomRepository.findClassRoomByNameAndFacultyId(updateClassroomRequest.getNameClassRoom(), updateClassroomRequest.getIdFaculty());
+            if (classRoom1 != null)
             {
                 classRoom1.setName(updateClassroomRequest.getNameClassRoom());
                 classRoom1.setFaculty(faculty);
-                ClassRoom classRoom2=  classRoomRepository.save(classRoom1);
+                ClassRoom classRoom2 =  classRoomRepository.save(classRoom1);
                 logger.info("update  classroom name = '{}'", classRoom2.getName());
                 return ResponseEntity.ok("update new classroom successfully");
             }
@@ -111,7 +111,7 @@ public class ClassroomService {
     }
     public ResponseEntity<?> createListClassRoom(ListClassroomRequest listclassRoomRequest) {
         Faculty faculty = facultyService.getFacultyById1(listclassRoomRequest.getIdFaculty());
-        if(faculty==null)
+        if (faculty == null)
         {
             logger.error("Get create failed. Cause by list faculty are not found");
             return ResponseEntity.ok("List faculty empty");
@@ -130,13 +130,13 @@ public class ClassroomService {
     }
     public ResponseEntity<?> updateListClassRoom(ListClassroomRequest listclassRoomRequest) {
         Faculty faculty = facultyService.getFacultyById1(listclassRoomRequest.getIdFaculty());
-        if(faculty==null)
+        if (faculty == null)
         {
             logger.error("update failed. Cause by list faculty are not found");
             return ResponseEntity.ok("List faculty empty");
         }
         for (NameRequest i : listclassRoomRequest.getNameClassroom()) {
-            ClassRoom classRoom= classRoomRepository.findClassRoomByNameAndFacultyId(i.getNameClassroom(),listclassRoomRequest.getIdFaculty());
+            ClassRoom classRoom = classRoomRepository.findClassRoomByNameAndFacultyId(i.getNameClassroom(), listclassRoomRequest.getIdFaculty());
             if (classRoom == null) continue;
             classRoom.setName(i.getNameClassroom());
             classRoom.setFaculty(faculty);

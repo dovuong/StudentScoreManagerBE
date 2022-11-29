@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ClassroomRepository extends JpaRepository<ClassRoom,Integer> {
+public interface ClassroomRepository extends JpaRepository<ClassRoom, Integer> {
 public List<ClassRoom> findAllByFacultyId(int id);
 public ClassRoom findClassRoomByName(String name);
 public ClassRoom findClassRoomById(int id);
-public ClassRoom findClassRoomByNameAndFacultyId(String name,int fac);
+public ClassRoom findClassRoomByNameAndFacultyId(String name, int fac);
 
 }

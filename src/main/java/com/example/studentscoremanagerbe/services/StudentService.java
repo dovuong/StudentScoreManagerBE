@@ -23,8 +23,8 @@ public class StudentService {
     StudentRepository studentRepository;
     public ResponseEntity<?> getStudent()
     {
-        List<Student> Students =studentRepository.findAll();
-        if(Students==null)
+        List<Student> Students = studentRepository.findAll();
+        if (Students == null)
         {
             logger.error("Get all students failed. Cause by list students are not found");
             return ResponseEntity.ok("List students empty");
@@ -37,8 +37,8 @@ public class StudentService {
     }
     public ResponseEntity<?> getStudentByClassroom(int idClassroom)
     {
-        List<Student> Students =studentRepository.findAllByClassRoomId(idClassroom);
-        if(Students==null)
+        List<Student> Students = studentRepository.findAllByClassRoomId(idClassroom);
+        if (Students == null)
         {
             logger.error("Get all students failed. Cause by list students are not found");
             return ResponseEntity.ok("List students empty");
@@ -52,15 +52,15 @@ public class StudentService {
 
     public ResponseEntity<?> createStudent(StudentRequest studentRequest)
     {
-        ClassRoom classRoom= classroomService.getClassRoomById(studentRequest.getIdClassroom());
-        if(classRoom==null)
+        ClassRoom classRoom = classroomService.getClassRoomById(studentRequest.getIdClassroom());
+        if (classRoom == null)
         {
             logger.error(" create failed. Cause by classroom are not found");
             return ResponseEntity.ok("List  classroom  empty");
         }
         else
         {
-           Student student= new Student();
+           Student student = new Student();
            student.setName(studentRequest.getName());
            student.setBirthday(studentRequest.getBirthday());
            student.setClassRoom(classRoom);
@@ -74,15 +74,15 @@ public class StudentService {
     public ResponseEntity<?> updateStudent(UpdateStudentRequest updateStudentRequest)
     {
      ClassRoom classRoom = classroomService.getClassRoomById(updateStudentRequest.getIdClassroom());
-        if(classRoom==null)
+        if (classRoom == null)
         {
             logger.error("create failed. Cause by classroom are not found");
             return ResponseEntity.ok("classroom empty");
         }
         else
         {
-            Student student= studentRepository.findStudentByIdAndClassRoomId(updateStudentRequest.getIdStudent(), updateStudentRequest.getIdClassroom());
-            if(student!=null) {
+            Student student = studentRepository.findStudentByIdAndClassRoomId(updateStudentRequest.getIdStudent(), updateStudentRequest.getIdClassroom());
+            if (student != null) {
                 student.setName(updateStudentRequest.getName());
                 student.setBirthday(updateStudentRequest.getBirthday());
                 student.setClassRoom(classRoom);
@@ -96,15 +96,15 @@ public class StudentService {
     }
     public ResponseEntity<?> createListStudent(ListStudentRequest listStudentRequest)
     {
-        ClassRoom classRoom= classroomService.getClassRoomById(listStudentRequest.getIdClassroom());
-        if(classRoom==null)
+        ClassRoom classRoom = classroomService.getClassRoomById(listStudentRequest.getIdClassroom());
+        if (classRoom == null)
         {
             logger.error(" create failed. Cause by classroom are not found");
             return ResponseEntity.ok("List  classroom  empty");
         }
         else
         {
-            for(InforStudentRequest i: listStudentRequest.getStudent()) {
+            for (InforStudentRequest i: listStudentRequest.getStudent()) {
                 Student student = new Student();
                 student.setName(i.getName());
                 student.setBirthday(i.getBirthday());
@@ -121,14 +121,14 @@ public class StudentService {
     public ResponseEntity<?> updateListStudent(ListUpdateStudentRequest listUpdateStudentRequest)
     {
         ClassRoom classRoom = classroomService.getClassRoomById(listUpdateStudentRequest.getIdClassroom());
-        if(classRoom==null)
+        if (classRoom == null)
         {
             logger.error("update failed. Cause by classroom are not found");
             return ResponseEntity.ok("classroom empty");
         }
         else
         {
-            for(InforUpdateStudentRequest i: listUpdateStudentRequest.getStudent()) {
+            for (InforUpdateStudentRequest i: listUpdateStudentRequest.getStudent()) {
                 Student student = studentRepository.findStudentByIdAndClassRoomId(i.getId(), listUpdateStudentRequest.getIdClassroom());
                 if (student == null) continue;
                 student.setName(i.getName());
@@ -147,15 +147,15 @@ public class StudentService {
     public ResponseEntity<?> deleteStudent(DeleteStudentRequest deleteStudentRequest)
     {
         ClassRoom classRoom = classroomService.getClassRoomById(deleteStudentRequest.getIdClass());
-        if(classRoom==null)
+        if (classRoom == null)
         {
             logger.error("delete failed. Cause by classroom are not found");
             return ResponseEntity.ok("classroom empty");
         }
         else
         {
-            Student student= studentRepository.findStudentByIdAndClassRoomId(deleteStudentRequest.getIdStudent(),deleteStudentRequest.getIdClass());
-            if(student!=null) {
+            Student student = studentRepository.findStudentByIdAndClassRoomId(deleteStudentRequest.getIdStudent(), deleteStudentRequest.getIdClass());
+            if (student != null) {
                student.setStatus(false);
                 studentRepository.save(student);
                 logger.info("delete student name = '{}'", student.getName());
@@ -167,14 +167,14 @@ public class StudentService {
     public ResponseEntity<?> DeleteListStudent(DeleteListStudentRequest deleteListStudentRequest)
     {
         ClassRoom classRoom = classroomService.getClassRoomById(deleteListStudentRequest.getIdClass());
-        if(classRoom==null)
+        if (classRoom == null)
         {
             logger.error("delete failed. Cause by classroom are not found");
             return ResponseEntity.ok("classroom empty");
         }
         else
         {
-            for(int i: deleteListStudentRequest.getIdStudents()) {
+            for (int i: deleteListStudentRequest.getIdStudents()) {
                 Student student = studentRepository.findStudentByIdAndClassRoomId(i, deleteListStudentRequest.getIdClass());
                 if (student == null) continue;
                student.setStatus(false);
