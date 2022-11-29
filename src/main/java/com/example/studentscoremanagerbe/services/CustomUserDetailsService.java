@@ -101,8 +101,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 newUser.setPassword(encodedPassword);
                 Role role = roleRepository.findRoleById(roleId);
                 newUser.setRole(role);
-                newUser.setCreateAt(date);
-                newUser.setUpdateAt(date);
                 userRepo.save(newUser);
                 logger.info("Created " + newUser.getRole().getName() + " " + newUser.getId());
                 return 1;

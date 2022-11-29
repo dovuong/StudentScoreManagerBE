@@ -99,13 +99,14 @@ public class AuthController {
                                 signupRequest.getPassword());
                 return authenticateUser(loginRequest);
             }
+            return ResponseEntity.ok().body(new MessageResponse("Login failed"));
         } catch (Exception e) {
             Sentry.captureException(e);
-        } finally {
-            return ResponseEntity.ok().body(new MessageResponse("Register failed"));
+            return ResponseEntity.ok().body(new MessageResponse("Login failed"));
         }
-
     }
+
+
 
     /**
      * Some javadoc. // OK
