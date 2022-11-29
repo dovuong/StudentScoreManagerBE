@@ -18,7 +18,7 @@ public class ClassroomController {
     @Autowired
     ClassroomService classroomService;
     @PostMapping("/create-classroom")
-    @ApiOperation(value = "11/29/2022 This is create new faculty")
+    @ApiOperation(value = "11/29/2022 This is create new classroom")
 
     public ResponseEntity<?> createClassroom(@RequestBody ClassroomRequest classroomRequest) {
         try {
@@ -29,7 +29,7 @@ public class ClassroomController {
         }
     }
     @PostMapping("/update-classroom")
-    @ApiOperation(value = "11/29/2022 This is create new faculty")
+    @ApiOperation(value = "11/29/2022 This is update classroom")
 
     public ResponseEntity<?> updateClassroom(@RequestBody UpdateClassroomRequest updateclassroomRequest) {
         try {
@@ -40,7 +40,7 @@ public class ClassroomController {
         }
     }
     @PostMapping("/create-list-classroom")
-    @ApiOperation(value = "11/29/2022 This is create new faculty")
+    @ApiOperation(value = "11/29/2022 This is create list classroom")
 
     public ResponseEntity<?> createListClassroom(@RequestBody ListClassroomRequest listClassroomRequest) {
         try {
@@ -50,8 +50,8 @@ public class ClassroomController {
             return ResponseEntity.ok().body(e);
         }
     }
-    @PostMapping("/create-list-classroom")
-    @ApiOperation(value = "11/29/2022 This is create new faculty")
+    @PostMapping("/update-list-classroom")
+    @ApiOperation(value = "11/29/2022 This is update list classroom")
 
     public ResponseEntity<?> updateListClassroom(@RequestBody ListClassroomRequest listClassroomRequest) {
         try {
@@ -62,7 +62,7 @@ public class ClassroomController {
         }
     }
     @GetMapping("/get-list-classroom")
-    @ApiOperation(value = "11/29/2022 This is create new faculty")
+    @ApiOperation(value = "11/29/2022 This is get list classroom")
 
     public ResponseEntity<?> getListClassroom() {
         try {
@@ -73,7 +73,7 @@ public class ClassroomController {
         }
     }
     @GetMapping("/get-list-classroom-by-faculty/{id}")
-    @ApiOperation(value = "11/29/2022 This is create new faculty")
+    @ApiOperation(value = "11/29/2022 This is get list classroom by faculty")
 
     public ResponseEntity<?> getListClassroom(@PathVariable int id) {
         try {
