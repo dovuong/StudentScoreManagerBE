@@ -1,9 +1,11 @@
 package com.example.studentscoremanagerbe.model;
 import com.sun.istack.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -20,6 +22,8 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class ClassRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,20 +36,9 @@ public class ClassRoom {
     @ManyToOne
     @JoinColumn(name = "faculty_id")
     Faculty faculty;
-    @JoinColumn(name = "createdAt", nullable = false, updatable = true)
-    @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    private Date createAt;
-
-    @Column(name = "updatedAt", nullable = false, updatable = true)
-    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
     @LastModifiedDate
-    private Date updateAt;
+    private Date updatedAt;
 
-
-    @Column(name = "deletedAt", updatable = true)
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date deletedAt;
 }

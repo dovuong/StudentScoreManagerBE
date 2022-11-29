@@ -2,11 +2,16 @@ package com.example.studentscoremanagerbe.model;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.security.Timestamp;
 import java.util.Date;
 
 
@@ -22,6 +27,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "Faculty")
+@EntityListeners(AuditingEntityListener.class)
 public class Faculty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,19 +36,10 @@ public class Faculty {
     @NotNull
     @Size(max = 255, message = "must be less than 255 characters")
     private String name;
-    @JoinColumn(name = "createdAt", nullable = false, updatable = true)
-    @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    private Date createAt;
-
-    @Column(name = "updatedAt", nullable = true, updatable = true)
-    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
     @LastModifiedDate
-    private Date updateAt;
+    private Date updatedAt;
 
 
-    @Column(name = "deletedAt", nullable = true, updatable = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date deletedAt;
 }
