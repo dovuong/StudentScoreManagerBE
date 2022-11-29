@@ -9,4 +9,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class NameRequest {
     private String nameClassroom;
+    private int idClass;
 }

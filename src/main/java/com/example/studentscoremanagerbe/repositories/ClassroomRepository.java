@@ -12,5 +12,6 @@ public List<ClassRoom> findAllByFacultyId(int id);
 public ClassRoom findClassRoomByName(String name);
 public ClassRoom findClassRoomById(int id);
 public ClassRoom findClassRoomByNameAndFacultyId(String name, int fac);
+public ClassRoom findClassRoomByIdAndFacultyId(int id, int fac);
 
 }

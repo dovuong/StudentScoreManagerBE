@@ -97,7 +97,7 @@ public class ClassroomService {
         }
         else
         {
-            ClassRoom classRoom1 = classRoomRepository.findClassRoomByNameAndFacultyId(updateClassroomRequest.getNameClassRoom(), updateClassroomRequest.getIdFaculty());
+            ClassRoom classRoom1 = classRoomRepository.findClassRoomByIdAndFacultyId(updateClassroomRequest.getIdClass(), updateClassroomRequest.getIdFaculty());
             if (classRoom1 != null)
             {
                 classRoom1.setName(updateClassroomRequest.getNameClassRoom());
@@ -136,7 +136,7 @@ public class ClassroomService {
             return ResponseEntity.ok("List faculty empty");
         }
         for (NameRequest i : listclassRoomRequest.getNameClassroom()) {
-            ClassRoom classRoom = classRoomRepository.findClassRoomByNameAndFacultyId(i.getNameClassroom(), listclassRoomRequest.getIdFaculty());
+            ClassRoom classRoom = classRoomRepository.findClassRoomByIdAndFacultyId(i.getIdClass(), listclassRoomRequest.getIdFaculty());
             if (classRoom == null) continue;
             classRoom.setName(i.getNameClassroom());
             classRoom.setFaculty(faculty);
