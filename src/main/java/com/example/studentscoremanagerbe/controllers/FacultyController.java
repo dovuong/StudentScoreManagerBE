@@ -55,7 +55,7 @@ public class FacultyController {
     @PostMapping("/create-faculty")
     @ApiOperation(value = "11/23/2022 This is create new faculty")
 
-    public ResponseEntity<?> createFaculty(FacultyRequest facultyRequest) {
+    public ResponseEntity<?> createFaculty(@RequestBody FacultyRequest facultyRequest) {
         try {
             return ResponseEntity.ok(facultyService.createFaculty(facultyRequest));
         } catch (Exception e) {

@@ -50,15 +50,23 @@ public class FacultyService {
 
 
     }
+    public Faculty getFacultyById1(int id) {
+        Faculty faculty = facultyRepository.findById(id);
+        if (faculty != null){
+            logger.info("Get faculty id = {}", id);
+            return faculty;
+        }
+
+        logger.error("Get faculty failed. Cause by faculty id = {} is not found", id);
+        return null;
+
+
+    }
     public ResponseEntity<?> createFaculty(FacultyRequest facultyRequest) {
         Faculty faculty = facultyRepository.findByName(facultyRequest.getName());
         if (faculty == null){
             Faculty newFaculty = new Faculty();
-            Date createDate = new Date();
             newFaculty.setName(facultyRequest.getName());
-            newFaculty.setCreateAt(createDate);
-            newFaculty.setDeletedAt(null);
-            newFaculty.setUpdateAt(null);
             facultyRepository.save(newFaculty);
             logger.info("Create faculty name = '{}'", facultyRequest.getName());
             return ResponseEntity.ok("create new faculty successfully");
