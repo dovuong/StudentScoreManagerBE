@@ -73,9 +73,9 @@ public class AuthController {
 
                 return authenticateUser(loginRequest);
             }
+            return ResponseEntity.ok().body(new MessageResponse("Register failed"));
         } catch (Exception e) {
             Sentry.captureException(e);
-        } finally {
             return ResponseEntity.ok().body(new MessageResponse("Register failed"));
         }
     }

@@ -18,7 +18,7 @@ import java.util.List;
 public class StudentService {
     Logger logger = LoggerFactory.getLogger(ClassroomService.class);
     @Autowired
-   ClassroomService classroomService;
+    ClassroomService classroomService;
     @Autowired
     StudentRepository studentRepository;
     public ResponseEntity<?> getStudent()
@@ -76,7 +76,7 @@ public class StudentService {
      ClassRoom classRoom = classroomService.getClassRoomById(updateStudentRequest.getIdClassroom());
         if (classRoom == null)
         {
-            logger.error("create failed. Cause by classroom are not found");
+            logger.error("update failed. Cause by classroom are not found");
             return ResponseEntity.ok("classroom empty");
         }
         else

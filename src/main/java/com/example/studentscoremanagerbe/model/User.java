@@ -2,6 +2,7 @@ package com.example.studentscoremanagerbe.model;
 
 import com.sun.istack.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -24,6 +25,7 @@ import java.util.Date;
 @Entity
 @Table(name = "Users")
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

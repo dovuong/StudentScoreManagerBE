@@ -1,15 +1,14 @@
 package com.example.studentscoremanagerbe.payload.request;
 
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class ListClassroomRequest {
-    private List<NameCreateRequest> nameClassroom;
+public class ListUpdateClassRequest {
+    private List<NameRequest> nameClassroom;
     private int idFaculty;
 }

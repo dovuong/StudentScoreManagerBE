@@ -1,7 +1,6 @@
 package com.example.studentscoremanagerbe.controllers;
 
 import com.example.studentscoremanagerbe.payload.request.*;
-import com.example.studentscoremanagerbe.services.ClassroomService;
 import com.example.studentscoremanagerbe.services.StudentService;
 import io.sentry.Sentry;
 import io.swagger.annotations.Api;
@@ -10,14 +9,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin()
 @RestController
 @RequestMapping("/api")
 @Api(tags = "Student")
-public class StudentController {
-    Logger logger = LoggerFactory.getLogger(StudentController.class);
+@PreAuthorize("hasRole('ROLE_ADMIN')")
+public class AdminStudentController {
+    Logger logger = LoggerFactory.getLogger(AdminStudentController.class);
     @Autowired
     StudentService studentService;
     @PostMapping("/create-student")

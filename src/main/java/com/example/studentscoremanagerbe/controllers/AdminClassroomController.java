@@ -1,20 +1,19 @@
 package com.example.studentscoremanagerbe.controllers;
 
-import com.example.studentscoremanagerbe.payload.request.ClassroomRequest;
-import com.example.studentscoremanagerbe.payload.request.FacultyRequest;
-import com.example.studentscoremanagerbe.payload.request.ListClassroomRequest;
-import com.example.studentscoremanagerbe.payload.request.UpdateClassroomRequest;
+import com.example.studentscoremanagerbe.payload.request.*;
 import com.example.studentscoremanagerbe.services.ClassroomService;
 import io.sentry.Sentry;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin()
 @RestController
 @RequestMapping("/api")
-public class ClassroomController {
+@PreAuthorize("hasRole('ROLE_ADMIN')")
+public class AdminClassroomController {
     @Autowired
     ClassroomService classroomService;
     @PostMapping("/create-classroom")
@@ -53,7 +52,7 @@ public class ClassroomController {
     @PostMapping("/update-list-classroom")
     @ApiOperation(value = "11/29/2022 This is update list classroom")
 
-    public ResponseEntity<?> updateListClassroom(@RequestBody ListClassroomRequest listClassroomRequest) {
+    public ResponseEntity<?> updateListClassroom(@RequestBody ListUpdateClassRequest listClassroomRequest) {
         try {
             return ResponseEntity.ok(classroomService.updateListClassRoom(listClassroomRequest));
         } catch (Exception e) {
