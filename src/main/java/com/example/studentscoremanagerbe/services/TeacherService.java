@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,9 +68,11 @@ public class TeacherService {
             user1.setStatus(true);
             user1.setNumberPhone(createTeacherRequest.getNumberPhone());
             user1.setUsername(createTeacherRequest.getNumberPhone());
-            user1.setPassword(createTeacherRequest.getNumberPhone());
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String pass = encoder.encode(createTeacherRequest.getNumberPhone());
+            user1.setPassword(pass);
             userRepository.save(user1);
-            logger.info("Create student name = '{}'", user1.getName());
+            logger.info("Create teacher name = '{}'", user1.getName());
             return ResponseEntity.ok("Create success");
         }
     }
@@ -84,10 +87,14 @@ public class TeacherService {
         else
         {
            User user1 =  userRepository.findUserByUsername(updateTeacherRequest.getNumberPhone());
-            if (user1 == null || user1.getNumberPhone().equals(updateTeacherRequest.getNumberPhone())) {
-                user.setPassword(updateTeacherRequest.getPassword());
+            if (user1 == null || user.getNumberPhone().equals(updateTeacherRequest.getNumberPhone())) {
+                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                String pass = encoder.encode(updateTeacherRequest.getNumberPhone());
+                user.setPassword(pass);
                 user.setName(updateTeacherRequest.getName());
                 user.setBirthday(updateTeacherRequest.getBirthday());
+                user.setUsername(updateTeacherRequest.getNumberPhone());
+                user.setNumberPhone(updateTeacherRequest.getNumberPhone());
                 userRepository.save(user);
                 logger.info("update student name = '{}'", user.getName());
                 return ResponseEntity.ok("update success");

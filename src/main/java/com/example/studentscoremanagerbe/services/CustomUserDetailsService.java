@@ -93,7 +93,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             User user = userRepo.findUserByUsername(username);
             System.out.println(userRepo.findUserByUsername(username));
             if (user == null) {
-                Date date = new Date();
                 User newUser = new User();
                 newUser.setUsername(username);
                 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -101,6 +100,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 newUser.setPassword(encodedPassword);
                 Role role = roleRepository.findRoleById(roleId);
                 newUser.setRole(role);
+                newUser.setStatus(true);
                 userRepo.save(newUser);
                 logger.info("Created " + newUser.getRole().getName() + " " + newUser.getId());
                 return 1;

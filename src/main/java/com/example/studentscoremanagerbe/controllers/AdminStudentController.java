@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin()
 @RestController
 @RequestMapping("/api")
-@Api(tags = "Student")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 public class AdminStudentController {
     Logger logger = LoggerFactory.getLogger(AdminStudentController.class);
