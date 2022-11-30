@@ -37,37 +37,37 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private CustomUserDetailsService userDetailsService;
 
     private static final Logger logger = LoggerFactory
-                                          .getLogger(AuthTokenFilter.class);
+            .getLogger(AuthTokenFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
-      try {
-        String jwt = getJwtFromRequest(request);
-        logger.info("Auth token filter: jwt = " + jwt);
-        if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-          String username = jwtUtils.getUserNameFromJwtToken(jwt);
+        try {
+            String jwt = getJwtFromRequest(request);
+            logger.info("Auth token filter: jwt = " + jwt);
+            if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
+                String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
-          UserDetails userDetails = userDetailsService
-                                    .loadUserByUsername(username);
+                UserDetails userDetails = userDetailsService
+                        .loadUserByUsername(username);
 
-          UsernamePasswordAuthenticationToken authentication =
-                  new UsernamePasswordAuthenticationToken(userDetails,
-                          null,
-                          userDetails.getAuthorities());
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(userDetails,
+                                null,
+                                userDetails.getAuthorities());
 
-          authentication.setDetails(new WebAuthenticationDetailsSource()
-                                        .buildDetails(request));
+                authentication.setDetails(new WebAuthenticationDetailsSource()
+                        .buildDetails(request));
 
-          SecurityContextHolder.getContext().setAuthentication(authentication);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+        } catch (Exception e) {
+            logger.error("Cannot set user authentication: {}", e);
         }
-      } catch (Exception e) {
-        logger.error("Cannot set user authentication: {}", e);
-      }
 
-      filterChain.doFilter(request, response);
+        filterChain.doFilter(request, response);
     }
 
     private String parseJwt(HttpServletRequest request) {
@@ -75,19 +75,18 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     }
 
     private String getJwtFromRequest(HttpServletRequest request) {
-      String bearerToken = request.getHeader("Authorization");
-      logger.info("Auth token filter: bearerToken = " + bearerToken);
-      if (bearerToken == null) {
-        return  parseJwt(request);
-      }
-      if (StringUtils.hasText(bearerToken)) {
-        return bearerToken;
-      }
-      if (StringUtils.hasText(bearerToken)) {
-        return bearerToken;
-      }
-      return null;
+        String bearerToken = request.getHeader("Authorization");
+        logger.info("Auth token filter: bearerToken = " + bearerToken);
+        if (bearerToken == null) {
+            return  parseJwt(request);
+        }
+        if (StringUtils.hasText(bearerToken)) {
+            return bearerToken;
+        }
+        if (StringUtils.hasText(bearerToken)) {
+            return bearerToken;
+        }
+        return null;
     }
-  }
-
+}
 
