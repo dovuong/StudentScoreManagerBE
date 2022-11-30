@@ -84,7 +84,7 @@ public class TeacherService {
         else
         {
            User user1 =  userRepository.findUserByUsername(updateTeacherRequest.getNumberPhone());
-            if (user1 == null|| user1.getNumberPhone().equals(updateTeacherRequest.getNumberPhone())) {
+            if (user1 == null || user1.getNumberPhone().equals(updateTeacherRequest.getNumberPhone())) {
                 user.setPassword(updateTeacherRequest.getPassword());
                 user.setName(updateTeacherRequest.getName());
                 user.setBirthday(updateTeacherRequest.getBirthday());
@@ -97,7 +97,7 @@ public class TeacherService {
     }
     public ResponseEntity<?> createListTeacher(ListTeacherRequest listTeacherRequest)
     {
-        for(CreateTeacherRequest i: listTeacherRequest.getTeacherRequests())
+        for (CreateTeacherRequest i: listTeacherRequest.getTeacherRequests())
         {
             return ResponseEntity.ok(createTeacher(i));
         }
@@ -107,7 +107,7 @@ public class TeacherService {
     public ResponseEntity<?> updateListTeacher(ListUpdateTeacherRequest listUpdateTeacherRequest)
     {
 
-        for(UpdateTeacherRequest i: listUpdateTeacherRequest.getTeacherRequestList())
+        for (UpdateTeacherRequest i: listUpdateTeacherRequest.getTeacherRequestList())
         {
             return ResponseEntity.ok(updateTeacher(i));
         }
@@ -117,7 +117,7 @@ public class TeacherService {
     public ResponseEntity<?> deleteTeacher(int idTeacher)
     {
        User user = userRepository.findUserById(idTeacher);
-       if (user == null )
+       if (user == null)
        {
            logger.error(" teacher empty");
            return ResponseEntity.ok("teacher empty");

@@ -141,7 +141,7 @@ public class AuthController {
                     .body(new UserInfoResponse(user, jwtCookie.getValue()));
         } catch (Exception ex) {
             Sentry.captureException(ex);
-            return ResponseEntity.ok().body(new MessageResponse("Login failed"));
+            return ResponseEntity.ok().body(ex);
         }
 
     }

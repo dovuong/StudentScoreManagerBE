@@ -139,7 +139,7 @@ public class ClassroomService {
             ClassRoom classRoom1 = classRoomRepository.findClassRoomByNameAndFacultyId(i.getNameClassroom(), listclassRoomRequest.getIdFaculty());
 
             if (classRoom == null) continue;
-            if (classRoom1!= null) continue;
+            if (classRoom1 != null) continue;
             classRoom.setName(i.getNameClassroom());
             classRoom.setFaculty(faculty);
             ClassRoom classRoom2 = classRoomRepository.save(classRoom);
