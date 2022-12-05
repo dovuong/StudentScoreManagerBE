@@ -19,7 +19,7 @@ public class StudentPointController {
     StudentPointService studentPointService;
 
     @GetMapping("/get-list-points-by-course/{id}")
-    @ApiOperation(value = "12/05/2022 This is get list student's point by course")
+    @ApiOperation(value = "05/12/2022 This is get list student's point by course")
     public ResponseEntity<?> getListPointByCourse(@PathVariable @Valid int id){
         try{
             return ResponseEntity.ok(studentPointService.getListPointByCourse(id));
@@ -28,7 +28,16 @@ public class StudentPointController {
             return ResponseEntity.ok(e);
         }
     }
-
+    @GetMapping("/get-point-by-id/{id}")
+    @ApiOperation(value = "05/12/2022 This is get student's point by id")
+    public ResponseEntity<?> getPointById(@PathVariable @Valid int id){
+        try{
+            return ResponseEntity.ok(studentPointService.getPointById(id));
+        }
+        catch (Exception e){
+            return ResponseEntity.ok(e);
+        }
+    }
     @PostMapping("/create-point")
     @ApiOperation(value = "05/12/2022 This is create point by student in course ")
     public ResponseEntity<?> createPoint(@RequestBody CreateStudentPointRequest request){

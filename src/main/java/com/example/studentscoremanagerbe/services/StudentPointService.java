@@ -9,6 +9,8 @@ import com.example.studentscoremanagerbe.repositories.CourseRepository;
 import com.example.studentscoremanagerbe.repositories.StudentPointRepository;
 import com.example.studentscoremanagerbe.repositories.StudentRepository;
 import com.example.studentscoremanagerbe.repositories.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ import java.util.List;
 
 @Service
 public class StudentPointService {
+    Logger logger = LoggerFactory.getLogger(StudentPointService.class);
+
     @Autowired
     StudentPointRepository studentPointRepository;
 
@@ -33,9 +37,25 @@ public class StudentPointService {
         Course course = courseRepository.findById(couseId);
         if(course != null){
             List<StudentPoint> studentPointList = studentPointRepository.findAllByCourseId(couseId);
+            logger.info(String.format("Get list student's point by course id= %s", couseId));
             return ResponseEntity.ok(studentPointList);
         }
-        else return ResponseEntity.ok("Course is not found");
+        else{
+            logger.error("Get list student's point failed. Cause by course not found");
+            return ResponseEntity.ok("Course is not found");
+        }
+    }
+
+    public ResponseEntity<?> getPointById(int id){
+        StudentPoint point = studentPointRepository.findStudentPointById(id);
+        if(point != null){
+            logger.info(String.format("Get student's point id = %s ", id));
+            return ResponseEntity.ok(point);
+        }
+        else{
+            logger.error("Get student's point failed. Cause by point is not existed");
+            return ResponseEntity.ok("Get student's point failed");
+        }
     }
 
     public ResponseEntity<?> createPoint(CreateStudentPointRequest request){
@@ -51,13 +71,23 @@ public class StudentPointService {
                     point.setCourse(course);
                     point.setCreatedAt(new Date());
                     studentPointRepository.save(point);
+                    logger.info("Create student's point successfully");
                     return ResponseEntity.ok("create point successfully");
                 }
-                else return ResponseEntity.ok("Point is existed");
+                else {
+                    logger.error("Create student's point failed. Cause by point is existed");
+                    return ResponseEntity.ok("Point is existed");
+                }
             }
-            else return ResponseEntity.ok("Student is not existed");
+            else {
+                logger.error("Create student's point failed. Cause by student is not existed");
+                return ResponseEntity.ok("Student is not existed");
+            }
         }
-        else return ResponseEntity.ok("Course is not existed");
+        else {
+            logger.error("Create student's point failed. Cause by course is not existed");
+            return ResponseEntity.ok("Course is not existed");
+        }
     }
     public ResponseEntity<?> updatePoint(CreateStudentPointRequest request){
         Course course = courseRepository.findById(request.getCourse_id());
@@ -71,13 +101,23 @@ public class StudentPointService {
                     point.setCourse(course);
                     point.setUpdatedAt(new Date());
                     studentPointRepository.save(point);
+                    logger.info(String.format("Update student's point id = %s successfully", point.getId()));
                     return ResponseEntity.ok("update point successfully");
                 }
-                else return ResponseEntity.ok("Point is not existed");
+                else {
+                    logger.error("Update student's point failed. Cause by point is not existed");
+                    return ResponseEntity.ok("Point is not existed");
+                }
             }
-            else return ResponseEntity.ok("Student is not existed");
+            else {
+                logger.error("Update student's point failed. Cause by student is not existed");
+                return ResponseEntity.ok("Student is not existed");
+            }
         }
-        else return ResponseEntity.ok("Course is not existed");
+        else {
+            logger.error("Update student's point failed. Cause by course is not existed");
+            return ResponseEntity.ok("Course is not existed");
+        }
     }
 
 }

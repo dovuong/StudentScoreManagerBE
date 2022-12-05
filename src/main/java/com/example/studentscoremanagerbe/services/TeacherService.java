@@ -138,5 +138,19 @@ public class TeacherService {
        }
     }
 
+    public ResponseEntity<?> getTeacherById(int id){
+        User user = userRepository.findUserById(id);
+        if(user != null){
+            logger.info(String.format("Get teacher id = %s successfully", id));
+            return ResponseEntity.ok(user);
+        }
+        else {
+            logger.error("Get teacher failed. Cause by teacher is not found");
+            return ResponseEntity.ok("get teacher failed");
+        }
+    }
+
+
+
 
 }

@@ -10,4 +10,5 @@ import java.util.List;
 public interface StudentPointRepository extends JpaRepository<StudentPoint, Integer> {
     public List<StudentPoint> findAllByCourseId(int id);
     public StudentPoint findStudentPointByCourse_IdAndAndStudentId(int course_id, int student_id);
+    public StudentPoint findStudentPointById(int id);
 }
