@@ -8,14 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Some javadoc. // OK
- *
- * @author Vuong
- * @since 20/11/2022
- * @deprecated Some javadoc.
- */
-@SuppressWarnings({"checkstyle:Indentation", "checkstyle:FileTabCharacter"})
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {

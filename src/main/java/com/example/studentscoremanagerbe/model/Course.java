@@ -10,14 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-/**
- * Some javadoc. // OK
- *
- * @author Vuong
- * @since 20/11/2022
- * @deprecated Some javadoc.
- */
-@SuppressWarnings("checkstyle:Indentation")
+
 @Getter
 @Setter
 @Entity
