@@ -3,6 +3,7 @@ package com.example.studentscoremanagerbe.services;
 import com.example.studentscoremanagerbe.model.Faculty;
 import com.example.studentscoremanagerbe.payload.request.FacultyRequest;
 import com.example.studentscoremanagerbe.repositories.FacultyRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import java.util.List;
  * @deprecated Some javadoc.
  */
 @Service
+@Slf4j
+
 public class FacultyService {
     Logger logger = LoggerFactory.getLogger(FacultyService.class);
 
