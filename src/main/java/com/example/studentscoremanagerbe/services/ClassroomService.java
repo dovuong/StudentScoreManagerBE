@@ -4,6 +4,7 @@ import com.example.studentscoremanagerbe.model.ClassRoom;
 import com.example.studentscoremanagerbe.model.Faculty;
 import com.example.studentscoremanagerbe.payload.request.*;
 import com.example.studentscoremanagerbe.repositories.ClassroomRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Slf4j
+
 public class ClassroomService {
     Logger logger = LoggerFactory.getLogger(ClassroomService.class);
     @Autowired

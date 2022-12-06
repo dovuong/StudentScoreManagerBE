@@ -9,6 +9,7 @@ import com.example.studentscoremanagerbe.repositories.CourseRepository;
 import com.example.studentscoremanagerbe.repositories.StudentPointRepository;
 import com.example.studentscoremanagerbe.repositories.StudentRepository;
 import com.example.studentscoremanagerbe.repositories.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Slf4j
+
 public class StudentPointService {
     Logger logger = LoggerFactory.getLogger(StudentPointService.class);
 
