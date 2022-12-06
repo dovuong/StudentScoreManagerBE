@@ -7,8 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CreateStudentPointRequest {
-    private String point;
+public class StudentCourseRequest {
     private int course_id;
     private int student_id;
 }

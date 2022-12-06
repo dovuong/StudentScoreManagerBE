@@ -1,6 +1,6 @@
 package com.example.studentscoremanagerbe.controllers;
 
-import com.example.studentscoremanagerbe.payload.request.CreateStudentPointRequest;
+import com.example.studentscoremanagerbe.payload.request.StudentPointRequest;
 import com.example.studentscoremanagerbe.services.StudentPointService;
 import io.sentry.Sentry;
 import io.swagger.annotations.ApiOperation;
@@ -24,7 +24,7 @@ public class StudentPointController {
     @ApiOperation(value = "05/12/2022 This is get list student's point by course")
     public ResponseEntity<?> getListPointByCourse(@PathVariable @Valid int id){
         try {
-            return ResponseEntity.ok(studentPointService.getListPointByCourse(id));
+            return studentPointService.getListPointByCourse(id);
         }
         catch (Exception e){
             Sentry.captureException(e);
@@ -35,7 +35,7 @@ public class StudentPointController {
     @ApiOperation(value = "05/12/2022 This is get student's point by id")
     public ResponseEntity<?> getPointById(@PathVariable @Valid int id){
         try {
-            return ResponseEntity.ok(studentPointService.getPointById(id));
+            return studentPointService.getPointById(id);
         }
         catch (Exception e){
             Sentry.captureException(e);
@@ -44,9 +44,9 @@ public class StudentPointController {
     }
     @PostMapping("/create-point")
     @ApiOperation(value = "05/12/2022 This is create point by student in course ")
-    public ResponseEntity<?> createPoint(@RequestBody CreateStudentPointRequest request){
+    public ResponseEntity<?> createPoint(@RequestBody StudentPointRequest request){
         try {
-            return ResponseEntity.ok(studentPointService.createPoint(request));
+            return studentPointService.createPoint(request);
         }
         catch (Exception e){
             Sentry.captureException(e);
@@ -56,9 +56,9 @@ public class StudentPointController {
 
     @PostMapping("/create-list-point")
     @ApiOperation(value = "05/12/2022 This is create point by student in course ")
-    public ResponseEntity<?> createListPoint(@RequestBody List<CreateStudentPointRequest> request){
+    public ResponseEntity<?> createListPoint(@RequestBody List<StudentPointRequest> request){
         try {
-            return ResponseEntity.ok(studentPointService.createListPoint(request));
+            return studentPointService.createListPoint(request);
         }
         catch (Exception e){
             Sentry.captureException(e);
@@ -68,9 +68,9 @@ public class StudentPointController {
 
     @PostMapping("/update-point")
     @ApiOperation(value = "05/12/2022 This is update point of student in course ")
-    public ResponseEntity<?> updatePoint(@RequestBody CreateStudentPointRequest request){
+    public ResponseEntity<?> updatePoint(@RequestBody StudentPointRequest request){
         try {
-            return ResponseEntity.ok(studentPointService.updatePoint(request));
+            return studentPointService.updatePoint(request);
         }
         catch (Exception e){
             Sentry.captureException(e);

@@ -1,5 +1,6 @@
 package com.example.studentscoremanagerbe.payload.response;
 
+import com.example.studentscoremanagerbe.model.Course;
 import com.example.studentscoremanagerbe.model.Subject;
 import com.example.studentscoremanagerbe.model.User;
 import com.sun.istack.NotNull;
@@ -26,6 +27,13 @@ public class CourseResponse {
     private String teacherName;
 
     private String subjectName;
+
+    CourseResponse(Course course) {
+        id = course.getId();
+        name = course.getName();
+        teacherName = course.getTeacher().getName();
+        subjectName = course.getSubject().getName();
+    }
 
 
 }
