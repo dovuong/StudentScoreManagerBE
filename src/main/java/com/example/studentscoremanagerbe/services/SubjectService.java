@@ -5,6 +5,7 @@ import com.example.studentscoremanagerbe.payload.request.CreateSubjectRequest;
 import com.example.studentscoremanagerbe.payload.request.UpdateSubjectRequest;
 import com.example.studentscoremanagerbe.repositories.SubjectRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Slf4j
+
 public class SubjectService {
     private final Logger logger = LoggerFactory.getLogger(SubjectService.class);
 
