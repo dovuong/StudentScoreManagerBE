@@ -2,6 +2,7 @@ package com.example.studentscoremanagerbe.controllers;
 
 import com.example.studentscoremanagerbe.payload.request.CreateStudentPointRequest;
 import com.example.studentscoremanagerbe.services.StudentPointService;
+import io.sentry.Sentry;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ public class StudentPointController {
             return ResponseEntity.ok(studentPointService.getListPointByCourse(id));
         }
         catch (Exception e){
+            Sentry.captureException(e);
             return ResponseEntity.ok(e);
         }
     }
@@ -36,6 +38,7 @@ public class StudentPointController {
             return ResponseEntity.ok(studentPointService.getPointById(id));
         }
         catch (Exception e){
+            Sentry.captureException(e);
             return ResponseEntity.ok(e);
         }
     }
@@ -46,6 +49,7 @@ public class StudentPointController {
             return ResponseEntity.ok(studentPointService.createPoint(request));
         }
         catch (Exception e){
+            Sentry.captureException(e);
             return ResponseEntity.ok(e);
         }
     }
@@ -57,6 +61,7 @@ public class StudentPointController {
             return ResponseEntity.ok(studentPointService.createListPoint(request));
         }
         catch (Exception e){
+            Sentry.captureException(e);
             return ResponseEntity.ok(e);
         }
     }
@@ -68,6 +73,7 @@ public class StudentPointController {
             return ResponseEntity.ok(studentPointService.updatePoint(request));
         }
         catch (Exception e){
+            Sentry.captureException(e);
             return ResponseEntity.ok(e);
         }
     }
