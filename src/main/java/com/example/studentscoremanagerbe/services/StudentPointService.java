@@ -43,7 +43,7 @@ public class StudentPointService {
                 studentPointResponses.add(new StudentPointResponse(studentPoint));
             }
             logger.info(String.format("Get list student's point by course id= %s", courseId));
-            return ResponseEntity.ok(studentPointList);
+            return ResponseEntity.ok(studentPointResponses);
         }
         else {
             logger.error("Get list student's point failed. Cause by course not found");
