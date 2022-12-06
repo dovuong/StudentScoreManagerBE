@@ -1,7 +1,5 @@
 package com.example.studentscoremanagerbe.services;
 
-import com.example.studentscoremanagerbe.model.ClassRoom;
-import com.example.studentscoremanagerbe.model.Student;
 import com.example.studentscoremanagerbe.model.User;
 import com.example.studentscoremanagerbe.payload.request.*;
 import com.example.studentscoremanagerbe.repositories.RoleRepository;
@@ -22,45 +20,33 @@ public class TeacherService {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
-    public ResponseEntity<?> getTeacher()
-    {
+    public ResponseEntity<?> getTeacher() {
         List<User> users = userRepository.findAll();
-        if (users == null)
-        {
+        if (users == null) {
             logger.error("Get all teacher failed. Cause by list teacher are not found");
             return ResponseEntity.ok("List teacher empty");
-        }
-        else
-        {
+        } else {
             logger.info("Get all teacher successfully ");
             return ResponseEntity.ok(users);
         }
     }
-    public ResponseEntity<?> getTeacherByUsername(String username)
-    {
+    public ResponseEntity<?> getTeacherByUsername(String username) {
         User users = userRepository.findUserByUsername(username);
-        if (users == null)
-        {
+        if (users == null) {
             logger.error("Get teacher failed. Cause by teacher are not found");
             return ResponseEntity.ok("Teacher empty");
-        }
-        else
-        {
+        } else {
             logger.info("Get teacher successfully ");
             return ResponseEntity.ok(users);
         }
     }
 
-    public ResponseEntity<?> createTeacher(CreateTeacherRequest createTeacherRequest)
-    {
+    public ResponseEntity<?> createTeacher(CreateTeacherRequest createTeacherRequest) {
         User user = userRepository.findUserByUsername(createTeacherRequest.getNumberPhone());
-        if (user != null)
-        {
+        if (user != null) {
             logger.error(" create failed. Cause by teacher exist");
             return ResponseEntity.ok("teacher exist");
-        }
-        else
-        {
+        } else {
             User user1 = new User();
             user1.setRole(roleRepository.findRoleById(2));
             user1.setName(createTeacherRequest.getName());
@@ -76,16 +62,12 @@ public class TeacherService {
             return ResponseEntity.ok("Create success");
         }
     }
-    public ResponseEntity<?> updateTeacher(UpdateTeacherRequest updateTeacherRequest)
-    {
+    public ResponseEntity<?> updateTeacher(UpdateTeacherRequest updateTeacherRequest) {
         User user = userRepository.findUserById(updateTeacherRequest.getIdTeacher());
-        if (user == null)
-        {
+        if (user == null) {
             logger.error("update failed. Cause by teacher are not found");
             return ResponseEntity.ok("teacher empty");
-        }
-        else
-        {
+        } else {
            User user1 =  userRepository.findUserByUsername(updateTeacherRequest.getNumberPhone());
             if (user1 == null || user.getNumberPhone().equals(updateTeacherRequest.getNumberPhone())) {
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -102,41 +84,46 @@ public class TeacherService {
             return ResponseEntity.ok("teacher doesn't exist!");
         }
     }
-    public ResponseEntity<?> createListTeacher(ListTeacherRequest listTeacherRequest)
-    {
-        for (CreateTeacherRequest i: listTeacherRequest.getTeacherRequests())
-        {
+    public ResponseEntity<?> createListTeacher(ListTeacherRequest listTeacherRequest) {
+        for (CreateTeacherRequest i: listTeacherRequest.getTeacherRequests()) {
             return ResponseEntity.ok(createTeacher(i));
         }
         logger.error("List teacher empty");
         return ResponseEntity.ok("List teacher empty");
     }
-    public ResponseEntity<?> updateListTeacher(ListUpdateTeacherRequest listUpdateTeacherRequest)
-    {
+    public ResponseEntity<?> updateListTeacher(ListUpdateTeacherRequest listUpdateTeacherRequest) {
 
-        for (UpdateTeacherRequest i: listUpdateTeacherRequest.getTeacherRequestList())
-        {
+        for (UpdateTeacherRequest i: listUpdateTeacherRequest.getTeacherRequestList()) {
             return ResponseEntity.ok(updateTeacher(i));
         }
         logger.error("List teacher empty");
         return ResponseEntity.ok("List teacher empty");
     }
-    public ResponseEntity<?> deleteTeacher(int idTeacher)
-    {
+    public ResponseEntity<?> deleteTeacher(int idTeacher) {
        User user = userRepository.findUserById(idTeacher);
-       if (user == null)
-       {
+       if (user == null) {
            logger.error(" teacher empty");
            return ResponseEntity.ok("teacher empty");
-       }
-       else
-       {
+       } else {
            user.setStatus(false);
            userRepository.save(user);
            logger.info("delete student name = '{}'", user.getName());
            return  ResponseEntity.ok("Delete success");
        }
     }
+
+    public ResponseEntity<?> getTeacherById(int id) {
+        User user = userRepository.findUserById(id);
+        if (user != null) {
+            logger.info(String.format("Get teacher id = %s successfully", id));
+            return ResponseEntity.ok(user);
+        } else {
+            logger.error("Get teacher failed. Cause by teacher is not found");
+            return ResponseEntity.ok("get teacher failed");
+        }
+    }
+
+
 
 
 }

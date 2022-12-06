@@ -63,8 +63,7 @@ public class AdminTeacherController {
     @PostMapping("/create-list-teacher")
     @ApiOperation(value = "11/30/2022 This is create list teacher")
 
-    public ResponseEntity<?> createListTeacher(@RequestBody ListTeacherRequest listTeacherRequest)
-    {
+    public ResponseEntity<?> createListTeacher(@RequestBody ListTeacherRequest listTeacherRequest) {
         try {
             return ResponseEntity.ok(teacherService.createListTeacher(listTeacherRequest));
         } catch (Exception e) {
