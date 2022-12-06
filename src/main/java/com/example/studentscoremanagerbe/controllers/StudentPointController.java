@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @CrossOrigin()
 @RestController
@@ -21,7 +22,7 @@ public class StudentPointController {
     @GetMapping("/get-list-points-by-course/{id}")
     @ApiOperation(value = "05/12/2022 This is get list student's point by course")
     public ResponseEntity<?> getListPointByCourse(@PathVariable @Valid int id){
-        try{
+        try {
             return ResponseEntity.ok(studentPointService.getListPointByCourse(id));
         }
         catch (Exception e){
@@ -31,7 +32,7 @@ public class StudentPointController {
     @GetMapping("/get-point-by-id/{id}")
     @ApiOperation(value = "05/12/2022 This is get student's point by id")
     public ResponseEntity<?> getPointById(@PathVariable @Valid int id){
-        try{
+        try {
             return ResponseEntity.ok(studentPointService.getPointById(id));
         }
         catch (Exception e){
@@ -41,8 +42,19 @@ public class StudentPointController {
     @PostMapping("/create-point")
     @ApiOperation(value = "05/12/2022 This is create point by student in course ")
     public ResponseEntity<?> createPoint(@RequestBody CreateStudentPointRequest request){
-        try{
+        try {
             return ResponseEntity.ok(studentPointService.createPoint(request));
+        }
+        catch (Exception e){
+            return ResponseEntity.ok(e);
+        }
+    }
+
+    @PostMapping("/create-list-point")
+    @ApiOperation(value = "05/12/2022 This is create point by student in course ")
+    public ResponseEntity<?> createListPoint(@RequestBody List<CreateStudentPointRequest> request){
+        try {
+            return ResponseEntity.ok(studentPointService.createListPoint(request));
         }
         catch (Exception e){
             return ResponseEntity.ok(e);
@@ -52,7 +64,7 @@ public class StudentPointController {
     @PostMapping("/update-point")
     @ApiOperation(value = "05/12/2022 This is update point of student in course ")
     public ResponseEntity<?> updatePoint(@RequestBody CreateStudentPointRequest request){
-        try{
+        try {
             return ResponseEntity.ok(studentPointService.updatePoint(request));
         }
         catch (Exception e){

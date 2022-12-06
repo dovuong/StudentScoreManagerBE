@@ -33,14 +33,13 @@ public class StudentPointService {
     @Autowired
     StudentRepository studentRepository;
 
-    public ResponseEntity<?> getListPointByCourse( int couseId){
+    public ResponseEntity<?> getListPointByCourse(int couseId){
         Course course = courseRepository.findById(couseId);
-        if(course != null){
+        if (course != null){
             List<StudentPoint> studentPointList = studentPointRepository.findAllByCourseId(couseId);
             logger.info(String.format("Get list student's point by course id= %s", couseId));
             return ResponseEntity.ok(studentPointList);
-        }
-        else{
+        } else {
             logger.error("Get list student's point failed. Cause by course not found");
             return ResponseEntity.ok("Course is not found");
         }
@@ -48,11 +47,10 @@ public class StudentPointService {
 
     public ResponseEntity<?> getPointById(int id){
         StudentPoint point = studentPointRepository.findStudentPointById(id);
-        if(point != null){
+        if (point != null) {
             logger.info(String.format("Get student's point id = %s ", id));
             return ResponseEntity.ok(point);
-        }
-        else{
+        } else {
             logger.error("Get student's point failed. Cause by point is not existed");
             return ResponseEntity.ok("Get student's point failed");
         }
@@ -61,10 +59,10 @@ public class StudentPointService {
     public ResponseEntity<?> createPoint(CreateStudentPointRequest request){
         Course course = courseRepository.findById(request.getCourse_id());
         Student student = studentRepository.findStudentById(request.getStudent_id());
-        if(course != null){
-            if (student != null){
+        if (course != null) {
+            if (student != null) {
                 StudentPoint studentPoint = studentPointRepository.findStudentPointByCourse_IdAndAndStudentId(request.getCourse_id(), request.getStudent_id());
-                if (studentPoint ==null){
+                if (studentPoint == null) {
                     StudentPoint point = new StudentPoint();
                     point.setPoint(request.getPoint());
                     point.setStudent(student);
@@ -92,10 +90,10 @@ public class StudentPointService {
     public ResponseEntity<?> updatePoint(CreateStudentPointRequest request){
         Course course = courseRepository.findById(request.getCourse_id());
         Student student = studentRepository.findStudentById(request.getStudent_id());
-        if(course != null){
-            if (student != null){
+        if (course != null) {
+            if (student != null) {
                 StudentPoint point = studentPointRepository.findStudentPointByCourse_IdAndAndStudentId(request.getCourse_id(), request.getStudent_id());
-                if (point !=null){
+                if (point != null) {
                     point.setPoint(request.getPoint());
                     point.setStudent(student);
                     point.setCourse(course);
@@ -118,6 +116,41 @@ public class StudentPointService {
             logger.error("Update student's point failed. Cause by course is not existed");
             return ResponseEntity.ok("Course is not existed");
         }
+    }
+
+    public ResponseEntity<?> createListPoint(List<CreateStudentPointRequest> requestList){
+        for (CreateStudentPointRequest request: requestList) {
+            Course course = courseRepository.findById(request.getCourse_id());
+            Student student = studentRepository.findStudentById(request.getStudent_id());
+            if (course != null) {
+                if (student != null) {
+                    StudentPoint studentPoint = studentPointRepository.findStudentPointByCourse_IdAndAndStudentId(request.getCourse_id(), request.getStudent_id());
+                    if (studentPoint == null) {
+                        StudentPoint point = new StudentPoint();
+                        point.setPoint(request.getPoint());
+                        point.setStudent(student);
+                        point.setCourse(course);
+                        point.setCreatedAt(new Date());
+                        studentPointRepository.save(point);
+                        logger.info("Create student's point successfully");
+                    }
+                    else {
+                        logger.error("Create student's point failed. Cause by point is existed");
+                        return ResponseEntity.ok("Point is existed");
+                    }
+                }
+                else {
+                    logger.error("Create student's point failed. Cause by student is not existed");
+                    return ResponseEntity.ok("Student is not existed");
+                }
+            }
+            else {
+                logger.error("Create student's point failed. Cause by course is not existed");
+                return ResponseEntity.ok("Course is not existed");
+            }
+        }
+        return ResponseEntity.ok("create list point successfully");
+
     }
 
 }
