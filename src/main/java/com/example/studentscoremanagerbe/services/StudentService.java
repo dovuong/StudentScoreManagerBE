@@ -138,7 +138,7 @@ public class StudentService {
         ClassRoom classRoom = classroomService.getClassRoomById(listUpdateStudentRequest.getIdClassroom());
         if (classRoom == null)
         {
-            logger.error("Update list student failed. Cause by classroom id='{}' are not found"+ listUpdateStudentRequest.getIdClassroom());
+            logger.error("Update list student failed. Cause by classroom id='{}' are not found" + listUpdateStudentRequest.getIdClassroom());
             MDC.clear();
             return ResponseEntity.ok("classroom empty");
         }
@@ -189,7 +189,7 @@ public class StudentService {
         ClassRoom classRoom = classroomService.getClassRoomById(deleteListStudentRequest.getIdClass());
         if (classRoom == null)
         {
-            logger.error("Delete list student failed. Cause by classroom id ='{}' are not found"+deleteListStudentRequest.getIdClass());
+            logger.error("Delete list student failed. Cause by classroom id ='{}' are not found" + deleteListStudentRequest.getIdClass());
             MDC.clear();
             return ResponseEntity.ok("classroom empty");
         }
