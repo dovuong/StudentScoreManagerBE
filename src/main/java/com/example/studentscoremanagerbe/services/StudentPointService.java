@@ -47,9 +47,11 @@ public class StudentPointService {
             for (StudentPoint studentPoint: studentPointList) {
                 studentPointResponses.add(new StudentPointResponse(studentPoint, totalStudent));
             }
+
             logger.info(String.format("Get list student's point by course id= '%s'", courseId));
             MDC.clear();
-            return ResponseEntity.ok(studentPointList);
+            return ResponseEntity.ok(studentPointResponses);
+
         }
         else {
 
