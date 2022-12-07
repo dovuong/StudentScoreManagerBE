@@ -24,6 +24,8 @@ public class CourseResponse {
 
     private String name;
 
+    private int teacherId;
+
     private String teacherName;
 
     private String subjectName;
@@ -33,6 +35,7 @@ public class CourseResponse {
     public CourseResponse(Course course, Integer totalStudent) {
         id = course.getId();
         name = course.getName();
+        teacherId = course.getTeacher().getId();
         teacherName = course.getTeacher().getName();
         subjectName = course.getSubject().getName();
         this.totalStudent = totalStudent;
