@@ -8,7 +8,9 @@ import common.UserDetailsImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -53,6 +55,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public int loadUserIdByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo.findUserByUsername(username);
         if (user == null) {
+
             throw new UsernameNotFoundException("User not found");
         }
         return user.getId();
@@ -71,6 +74,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
+
         return user;
     }
 

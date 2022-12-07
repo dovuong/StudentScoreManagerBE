@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,18 +27,21 @@ public class SubjectService {
         Subject subject = new Subject();
         subject.setName(createSubjectRequest.getName());
         subject.setCreatedAt(new Date());
-        logger.info("create new subject " + createSubjectRequest.getName());
+        logger.info("Create new subject name ='{}' successfully" + createSubjectRequest.getName());
+        MDC.clear();
         return subjectRepository.save(subject);
     }
     public List<Subject> getAllSubject() {
         List<Subject> subjects = subjectRepository.findAll();
-        logger.info("get all subject");
+        logger.info("Get all subject successfully");
+        MDC.clear();
         return subjects;
     }
     public Subject updateSubject(UpdateSubjectRequest updateSubjectRequest) {
         Subject subject = subjectRepository.findById(updateSubjectRequest.getSubjectId()).get();
         subject.setName(updateSubjectRequest.getName());
-        logger.info("update new subjectId " + updateSubjectRequest.getSubjectId());
+        logger.info("Update subject id ='{}' successfully" + updateSubjectRequest.getSubjectId());
+        MDC.clear();
         return subjectRepository.save(subject);
     }
 
