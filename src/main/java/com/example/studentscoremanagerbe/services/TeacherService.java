@@ -72,6 +72,30 @@ public class TeacherService {
             return ResponseEntity.ok("Create success");
         }
     }
+    public ResponseEntity<?> updateProfile(UpdateTeacherRequest updateTeacherRequest) {
+        User user = userRepository.findUserById(updateTeacherRequest.getIdTeacher());
+        if (user == null) {
+            logger.error("Update teacher failed. Cause by teacher id ='{}' are not found" + updateTeacherRequest.getIdTeacher());
+            MDC.clear();
+            return ResponseEntity.ok("teacher empty");
+        } else {
+            User user1 =  userRepository.findUserByUsername(updateTeacherRequest.getNumberPhone());
+            if (user1 == null || user.getNumberPhone().equals(updateTeacherRequest.getNumberPhone())) {
+                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                String pass = encoder.encode(updateTeacherRequest.getNumberPhone());
+                user.setPassword(pass);
+                user.setName(updateTeacherRequest.getName());
+                user.setBirthday(updateTeacherRequest.getBirthday());
+                user.setNumberPhone(updateTeacherRequest.getNumberPhone());
+                userRepository.save(user);
+                logger.info("Update teacher id = '{}'", user.getId());
+                MDC.clear();
+                return ResponseEntity.ok("update success");
+            }
+            return ResponseEntity.ok("teacher doesn't exist!");
+        }
+    }
+
     public ResponseEntity<?> updateTeacher(UpdateTeacherRequest updateTeacherRequest) {
         User user = userRepository.findUserById(updateTeacherRequest.getIdTeacher());
         if (user == null) {
