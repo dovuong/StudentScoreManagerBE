@@ -100,6 +100,7 @@ public class StudentService {
                 student.setNumberPhone(updateStudentRequest.getNumberPhone());
                 studentRepository.save(student);
                 logger.info("Update student id = '{}' successfully", student.getId());
+
                 MDC.clear();
                 return ResponseEntity.ok("update success");
             }
@@ -112,6 +113,7 @@ public class StudentService {
         if (classRoom == null)
         {
             logger.error("Create list student failed. Cause by classroom id ='{}' are not found" + listStudentRequest.getIdClassroom());
+
             MDC.clear();
             return ResponseEntity.ok("List  classroom  empty");
         }
@@ -129,6 +131,7 @@ public class StudentService {
                 studentRepository.save(student);
                 logger.info("Create student name = '{}' successfully", student.getName());
 
+
             }
             return ResponseEntity.ok("Create success");
         }
@@ -139,6 +142,7 @@ public class StudentService {
         if (classRoom == null)
         {
             logger.error("Update list student failed. Cause by classroom id='{}' are not found" + listUpdateStudentRequest.getIdClassroom());
+
             MDC.clear();
             return ResponseEntity.ok("classroom empty");
         }
@@ -155,6 +159,7 @@ public class StudentService {
                 student.setNumberPhone(i.getNumberPhone());
                 studentRepository.save(student);
                 logger.info("Update student id = '{}'", student.getId());
+
             }
 
                 return ResponseEntity.ok("update success");
@@ -168,6 +173,7 @@ public class StudentService {
         if (classRoom == null)
         {
             logger.error("Delete student failed. Cause by classroom id ='{}' are not found" + deleteStudentRequest.getIdClass());
+
             MDC.clear();
             return ResponseEntity.ok("classroom empty");
         }
@@ -178,6 +184,7 @@ public class StudentService {
                student.setStatus(false);
                 studentRepository.save(student);
                 logger.info("Delete student id = '{}' successfully", student.getId());
+
                 MDC.clear();
                 return ResponseEntity.ok("delete success");
             }
@@ -203,6 +210,7 @@ public class StudentService {
                 student.setStatus(false);
                 studentRepository.save(student);
                 logger.info("Delete student id = '{}' successfully", student.getId());
+
             }
 
             return ResponseEntity.ok("delete success");

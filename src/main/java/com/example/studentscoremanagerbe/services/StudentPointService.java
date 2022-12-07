@@ -51,7 +51,10 @@ public class StudentPointService {
                 studentPointResponses.add(new StudentPointResponse(studentPoint, totalStudent));
             }
 
-            return ResponseEntity.ok(studentPointList);
+            logger.info(String.format("Get list student's point by course id= '%s'", courseId));
+            MDC.clear();
+            return ResponseEntity.ok(studentPointResponses);
+
         }
         else {
 
@@ -160,10 +163,10 @@ public class StudentPointService {
                         point.setCourse(course);
                         point.setCreatedAt(new Date());
                         studentPointRepository.save(point);
-                        logger.info("Create point of student id ='{}' point successfully" + student.getId());
+                        logger.info("Create student's point successfully");
+                        MDC.clear();
                     }
                     else {
-
                         logger.error("Create student's point failed. Cause by point id ='{}' is existed" + studentPoint.getId());
                         MDC.clear();
                         return ResponseEntity.ok("Point is existed");
