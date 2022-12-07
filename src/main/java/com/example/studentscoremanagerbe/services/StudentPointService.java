@@ -12,6 +12,7 @@ import com.example.studentscoremanagerbe.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -45,11 +46,14 @@ public class StudentPointService {
             for (StudentPoint studentPoint: studentPointList) {
                 studentPointResponses.add(new StudentPointResponse(studentPoint));
             }
-            logger.info(String.format("Get list student's point by course id= %s", courseId));
+            logger.info(String.format("Get list student's point by course id= '%s'", courseId));
+            MDC.clear();
             return ResponseEntity.ok(studentPointList);
         }
         else {
-            logger.error("Get list student's point failed. Cause by course not found");
+
+            logger.error("Get list student's point failed. Cause by course id '{}' not found"+courseId);
+            MDC.clear();
             return ResponseEntity.ok("Course is not found");
         }
     }
@@ -57,11 +61,13 @@ public class StudentPointService {
     public ResponseEntity<?> getPointById(int id){
         StudentPoint point = studentPointRepository.findStudentPointById(id);
         if (point != null) {
-            logger.info(String.format("Get student's point id = %s ", id));
+            logger.info(String.format("Get student's point id = '%s' ", id));
+            MDC.clear();
             return ResponseEntity.ok(new StudentPointResponse(point));
         }
         else {
-            logger.error("Get student's point failed. Cause by point is not existed");
+            logger.error("Get student's point failed. Cause by student's point id= '{}' not found"+id);
+            MDC.clear();
             return ResponseEntity.ok("Get student's point failed");
         }
     }
@@ -79,21 +85,25 @@ public class StudentPointService {
                     point.setCourse(course);
                     point.setCreatedAt(new Date());
                     studentPointRepository.save(point);
-                    logger.info("Create student's point successfully");
+                    logger.info("Create point of student id = '{}' successfully"+student.getId());
+                    MDC.clear();
                     return ResponseEntity.ok("create point successfully");
                 }
                 else {
-                    logger.error("Create student's point failed. Cause by point is existed");
+                    logger.error("Create point of student id = '{}' failed. Cause by point is existed"+student.getId());
+                    MDC.clear();
                     return ResponseEntity.ok("Point is existed");
                 }
             }
             else {
-                logger.error("Create student's point failed. Cause by student is not existed");
+                logger.error("Create student's point failed. Cause by student id = '{}' is not existed",student.getId());
+                MDC.clear();
                 return ResponseEntity.ok("Student is not existed");
             }
         }
         else {
-            logger.error("Create student's point failed. Cause by course is not existed");
+            logger.error("Create student's point failed. Cause by course id = '{}' is not existed",course.getId());
+            MDC.clear();
             return ResponseEntity.ok("Course is not existed");
         }
     }
@@ -109,21 +119,25 @@ public class StudentPointService {
                     point.setCourse(course);
                     point.setUpdatedAt(new Date());
                     studentPointRepository.save(point);
-                    logger.info(String.format("Update student's point id = %s successfully", point.getId()));
+                    logger.info(String.format("Update student's point id = '%s' successfully", point.getId()));
+                    MDC.clear();
                     return ResponseEntity.ok("update point successfully");
                 }
                 else {
-                    logger.error("Update student's point failed. Cause by point is not existed");
+                    logger.error("Update student's point failed. Cause by point id = '{}' is not existed",point.getId());
+                    MDC.clear();
                     return ResponseEntity.ok("Point is not existed");
                 }
             }
             else {
-                logger.error("Update student's point failed. Cause by student is not existed");
+                logger.error("Update student's point failed. Cause by student id ='{}' is not existed",student.getId());
+                MDC.clear();
                 return ResponseEntity.ok("Student is not existed");
             }
         }
         else {
-            logger.error("Update student's point failed. Cause by course is not existed");
+            logger.error("Update student's point failed. Cause by course id ='{}' is not existed",course.getId());
+            MDC.clear();
             return ResponseEntity.ok("Course is not existed");
         }
     }
@@ -142,19 +156,23 @@ public class StudentPointService {
                         point.setCreatedAt(new Date());
                         studentPointRepository.save(point);
                         logger.info("Create student's point successfully");
+                        MDC.clear();
                     }
                     else {
-                        logger.error("Create student's point failed. Cause by point is existed");
+                        logger.error("Create student's point failed. Cause by point id ='{}' is existed"+studentPoint.getId());
+                        MDC.clear();
                         return ResponseEntity.ok("Point is existed");
                     }
                 }
                 else {
-                    logger.error("Create student's point failed. Cause by student is not existed");
+                    logger.error("Create student's point failed. Cause by student id = '{}' is not existed"+student.getId());
+                    MDC.clear();
                     return ResponseEntity.ok("Student is not existed");
                 }
             }
             else {
-                logger.error("Create student's point failed. Cause by course is not existed");
+                logger.error("Create student's point failed. Cause by course id= '{}' is not existed"+course.getId());
+                MDC.clear();
                 return ResponseEntity.ok("Course is not existed");
             }
         }

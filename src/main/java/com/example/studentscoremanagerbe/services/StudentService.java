@@ -9,6 +9,7 @@ import com.example.studentscoremanagerbe.repositories.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -30,11 +31,13 @@ public class StudentService {
         if (Students == null)
         {
             logger.error("Get all students failed. Cause by list students are not found");
+            MDC.clear();
             return ResponseEntity.ok("List students empty");
         }
         else
         {
             logger.info("Get all students successfully ");
+            MDC.clear();
             return ResponseEntity.ok(Students);
         }
     }
@@ -43,12 +46,14 @@ public class StudentService {
         List<Student> Students = studentRepository.findAllByClassRoomId(idClassroom);
         if (Students == null)
         {
-            logger.error("Get all students failed. Cause by list students are not found");
+            logger.error("Get student by classroom id ='{}' failed. Cause by list students are not found"+idClassroom);
+            MDC.clear();
             return ResponseEntity.ok("List students empty");
         }
         else
         {
-            logger.info("Get all students successfully ");
+            logger.info("Get student by classroom id ='{}' successfully "+idClassroom);
+            MDC.clear();
             return ResponseEntity.ok(Students);
         }
     }
@@ -58,8 +63,9 @@ public class StudentService {
         ClassRoom classRoom = classroomService.getClassRoomById(studentRequest.getIdClassroom());
         if (classRoom == null)
         {
-            logger.error(" create failed. Cause by classroom are not found");
-            return ResponseEntity.ok("List  classroom  empty");
+            logger.error("Create student failed. Cause by classroom id ={} are not found"+studentRequest.getIdClassroom());
+            MDC.clear();
+            return ResponseEntity.ok("List classroom  empty");
         }
         else
         {
@@ -70,7 +76,8 @@ public class StudentService {
            student.setNumberPhone(studentRequest.getNumberPhone());
            student.setStatus(true);
            studentRepository.save(student);
-           logger.info("Create student name = '{}'", student.getName());
+           logger.info("Create student name = '{}' successfully", student.getName());
+            MDC.clear();
             return ResponseEntity.ok("Create success");
         }
     }
@@ -79,7 +86,8 @@ public class StudentService {
      ClassRoom classRoom = classroomService.getClassRoomById(updateStudentRequest.getIdClassroom());
         if (classRoom == null)
         {
-            logger.error("update failed. Cause by classroom are not found");
+            logger.error("Update student failed. Cause by classroom id ='{}' are not found"+updateStudentRequest.getIdClassroom());
+            MDC.clear();
             return ResponseEntity.ok("classroom empty");
         }
         else
@@ -92,6 +100,7 @@ public class StudentService {
                 student.setNumberPhone(updateStudentRequest.getNumberPhone());
                 studentRepository.save(student);
                 logger.info("update student name = '{}'", student.getName());
+                MDC.clear();
                 return ResponseEntity.ok("update success");
             }
             return ResponseEntity.ok("Student doesn't exist!");
@@ -103,6 +112,7 @@ public class StudentService {
         if (classRoom == null)
         {
             logger.error(" create failed. Cause by classroom are not found");
+            MDC.clear();
             return ResponseEntity.ok("List  classroom  empty");
         }
         else
@@ -116,6 +126,7 @@ public class StudentService {
                 student.setStatus(true);
                 studentRepository.save(student);
                 logger.info("Create student name = '{}'", student.getName());
+                MDC.clear();
 
             }
             return ResponseEntity.ok("Create success");
@@ -127,6 +138,7 @@ public class StudentService {
         if (classRoom == null)
         {
             logger.error("update failed. Cause by classroom are not found");
+            MDC.clear();
             return ResponseEntity.ok("classroom empty");
         }
         else
@@ -140,6 +152,7 @@ public class StudentService {
                 student.setNumberPhone(i.getNumberPhone());
                 studentRepository.save(student);
                 logger.info("update student name = '{}'", student.getName());
+                MDC.clear();
             }
 
                 return ResponseEntity.ok("update success");
@@ -153,6 +166,7 @@ public class StudentService {
         if (classRoom == null)
         {
             logger.error("delete failed. Cause by classroom are not found");
+            MDC.clear();
             return ResponseEntity.ok("classroom empty");
         }
         else
@@ -162,6 +176,7 @@ public class StudentService {
                student.setStatus(false);
                 studentRepository.save(student);
                 logger.info("delete student name = '{}'", student.getName());
+                MDC.clear();
                 return ResponseEntity.ok("delete success");
             }
             return ResponseEntity.ok("Student doesn't exist!");
@@ -172,7 +187,8 @@ public class StudentService {
         ClassRoom classRoom = classroomService.getClassRoomById(deleteListStudentRequest.getIdClass());
         if (classRoom == null)
         {
-            logger.error("delete failed. Cause by classroom are not found");
+            logger.error("Delete failed. Cause by classroom are not found");
+            MDC.clear();
             return ResponseEntity.ok("classroom empty");
         }
         else
@@ -182,7 +198,8 @@ public class StudentService {
                 if (student == null) continue;
                student.setStatus(false);
                 studentRepository.save(student);
-                logger.info("delete student name = '{}'", student.getName());
+                logger.info("Delete student name = '{}'", student.getName());
+                MDC.clear();
             }
 
             return ResponseEntity.ok("delete success");

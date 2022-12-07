@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,8 @@ public class CourseService {
         course.setCreatedAt(new Date());
         course.setSubject(subject);
         course.setTeacher(user);
-        logger.info("create new course by admin");
+        logger.info(String.format("Create new course name = '%s' by admin successfully",createCourseRequest.getName()));
+        MDC.clear();
         return courseRepository.save(course);
     }
     public Course updateCourse(UpdateCourseRequest updateCourseRequest) {
@@ -47,22 +49,26 @@ public class CourseService {
         course.setName(updateCourseRequest.getName());
         course.setUpdatedAt(new Date());
         course.setTeacher(user);
-        logger.info("update course by admin courseId: " + updateCourseRequest.getCourseId());
+        logger.info(String.format("Update course id = '%s' by admin successfully ",updateCourseRequest.getCourseId()));
+        MDC.clear();
         return courseRepository.save(course);
     }
     public List<Course> getAllCourse() {
         List<Course> courses = courseRepository.findAll();
-        logger.info("get all course");
+        logger.info("Get all course successfully");
+        MDC.clear();
         return courses;
     }
     public List<Course> getAllCourseByTeacherId(Integer teacherId) {
         List<Course> courses = courseRepository.findAllByTeacherId(teacherId);
-        logger.info("getAllCourseByTeacherId: " + teacherId);
+        logger.info(String.format("Get all course by teacher id = '%s' " , teacherId));
+        MDC.clear();
         return courses;
     }
     public List<Course> getAllCourseBySubjectId(Integer subjectId) {
         List<Course> courses = courseRepository.findAllBySubjectId(subjectId);
-        logger.info("getAllCourseBySubjectId: " + subjectId);
+        logger.info(String.format("Get all course by subject id = '%s' " , subjectId));
+        MDC.clear();
         return courses;
     }
     void deleteCourse() {
