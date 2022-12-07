@@ -21,8 +21,8 @@ public class AdminTeacherController {
     @ApiOperation(value = "11/30/2022 This is get teacher")
 
     public ResponseEntity<?> getTeacher() {
-        MDC.put("requestURL","api/get-teacher");
-        MDC.put("method","GET");
+        MDC.put("requestURL", "api/get-teacher");
+        MDC.put("method", "GET");
         try {
             return ResponseEntity.ok(teacherService.getTeacher());
         } catch (Exception e) {
@@ -34,8 +34,8 @@ public class AdminTeacherController {
     @ApiOperation(value = "11/30/2022 This is get teacher by username")
 
     public ResponseEntity<?> getTeacherByUserName(@PathVariable String username) {
-        MDC.put("requestURL",String.format("api/get-teacher-by-username/%s",username));
-        MDC.put("method","GET");
+        MDC.put("requestURL", String.format("api/get-teacher-by-username/%s" , username));
+        MDC.put("method", "GET");
         try {
             return ResponseEntity.ok(teacherService.getTeacherByUsername(username));
         } catch (Exception e) {
@@ -47,8 +47,8 @@ public class AdminTeacherController {
     @ApiOperation(value = "11/30/2022 This is create teacher")
 
     public ResponseEntity<?> createTeacher(@RequestBody CreateTeacherRequest createTeacherRequest) {
-        MDC.put("requestURL","api/create-teacher");
-        MDC.put("method","POST");
+        MDC.put("requestURL", "api/create-teacher");
+        MDC.put("method", "POST");
         try {
             return ResponseEntity.ok(teacherService.createTeacher(createTeacherRequest));
         } catch (Exception e) {
@@ -60,8 +60,8 @@ public class AdminTeacherController {
     @ApiOperation(value = "11/30/2022 This is update teacher")
 
     public ResponseEntity<?> updateTeacher(@RequestBody UpdateTeacherRequest updateTeacherRequest) {
-        MDC.put("requestURL","api/update-teacher");
-        MDC.put("method","PUT");
+        MDC.put("requestURL", "api/update-teacher");
+        MDC.put("method", "PUT");
         try {
             return ResponseEntity.ok(teacherService.updateTeacher(updateTeacherRequest));
         } catch (Exception e) {
@@ -73,8 +73,8 @@ public class AdminTeacherController {
     @ApiOperation(value = "11/30/2022 This is create list teacher")
 
     public ResponseEntity<?> createListTeacher(@RequestBody ListTeacherRequest listTeacherRequest) {
-        MDC.put("requestURL","api/create-list-teacher");
-        MDC.put("method","POST");
+        MDC.put("requestURL", "api/create-list-teacher");
+        MDC.put("method", "POST");
         try {
             return ResponseEntity.ok(teacherService.createListTeacher(listTeacherRequest));
         } catch (Exception e) {
@@ -86,8 +86,8 @@ public class AdminTeacherController {
     @ApiOperation(value = "11/30/2022 This is update list teacher")
 
     public ResponseEntity<?> updateListTeacher(ListUpdateTeacherRequest listUpdateTeacherRequest) {
-        MDC.put("requestURL","api/update-list-teacher");
-        MDC.put("method","PUT");
+        MDC.put("requestURL", "api/update-list-teacher");
+        MDC.put("method", "PUT");
         try {
             return ResponseEntity.ok(teacherService.updateListTeacher(listUpdateTeacherRequest));
         } catch (Exception e) {
@@ -99,8 +99,8 @@ public class AdminTeacherController {
     @ApiOperation(value = "11/30/2022 This is delete list teacher")
 
     public ResponseEntity<?> deleteTeacher(@PathVariable int id) {
-        MDC.put("requestURL",String.format("api/delete-teacher/%s",id));
-        MDC.put("method","DELETE");
+        MDC.put("requestURL", String.format("api/delete-teacher/%s" , id));
+        MDC.put("method", "DELETE");
         try {
             return ResponseEntity.ok(teacherService.deleteTeacher(id));
         } catch (Exception e) {

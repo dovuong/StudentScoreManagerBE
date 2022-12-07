@@ -44,13 +44,13 @@ public class ClassroomService {
         ClassRoom classRooms = classRoomRepository.findClassRoomById(id);
         if (classRooms == null)
         {
-            logger.error(String.format("Get classroom failed. Cause by classroom id = '%s' are not found",id));
+            logger.error(String.format("Get classroom failed. Cause by classroom id = '%s' are not found", id));
             MDC.clear();
             return null;
         }
         else
         {
-            logger.info(String.format("Get classroom id = '%s' successfully",id));
+            logger.info(String.format("Get classroom id = '%s' successfully", id));
             MDC.clear();
             return classRooms;
         }
@@ -60,13 +60,13 @@ public class ClassroomService {
         List<ClassRoom> classRooms = classRoomRepository.findAllByFacultyId(idFaculty);
         if (classRooms == null)
         {
-            logger.error(String.format("Get list classroom by faculty failed. Cause by faculty id = '%s' are not found",idFaculty));
+            logger.error(String.format("Get list classroom by faculty failed. Cause by faculty id = '%s' are not found", idFaculty));
             MDC.clear();
             return ResponseEntity.ok("List classroom empty");
         }
         else
         {
-            logger.info(String.format("Get list classroom by faculty id = '%s' successfully",idFaculty));
+            logger.info(String.format("Get list classroom by faculty id = '%s' successfully", idFaculty));
             MDC.clear();
             return ResponseEntity.ok(classRooms);
         }

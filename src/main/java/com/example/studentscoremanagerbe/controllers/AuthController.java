@@ -65,8 +65,8 @@ public class AuthController {
     @ApiOperation (value = "20/11/2022 by Vuong : signup new account teacher")
     @PostMapping ("/create-admin")
     public ResponseEntity<?> registerAdmin(@Valid @RequestBody SignupRequest signupRequest) {
-        MDC.put("requestURL","api/auth/create-admin");
-        MDC.put("method","POST");
+        MDC.put("requestURL", "api/auth/create-admin");
+        MDC.put("method", "POST");
         try {
             if (customUserDetailsService.saveAdmin(signupRequest.getUsername(),
                     signupRequest.getPassword()) == 1) {
@@ -95,8 +95,8 @@ public class AuthController {
     @PreAuthorize ("hasRole('ROLE_ADMIN')")
     @PostMapping ("/create-teacher")
     public ResponseEntity<?> registerTeacher(@Valid @RequestBody SignupRequest signupRequest) {
-        MDC.put("requestURL","api/auth/create-teacher");
-        MDC.put("method","POST");
+        MDC.put("requestURL", "api/auth/create-teacher");
+        MDC.put("method", "POST");
         try {
             if (customUserDetailsService.saveTeacher(signupRequest.getUsername(), signupRequest.getPassword()) == 1) {
                 LoginRequest loginRequest =
@@ -124,8 +124,8 @@ public class AuthController {
     @ApiOperation (value = "20/11/2022 by Vuong : login ")
     @PostMapping ("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        MDC.put("requestURL","api/auth/login");
-        MDC.put("method","POST");
+        MDC.put("requestURL", "api/auth/login");
+        MDC.put("method", "POST");
         try {
             Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(
@@ -166,8 +166,8 @@ public class AuthController {
     @ApiOperation (value = "20/11/2022 by Vuong : get current user ")
     @GetMapping("/current")
     public ResponseEntity<?> currentUserName(Principal principal) {
-        MDC.put("requestURL","api/auth/current");
-        MDC.put("method","GET");
+        MDC.put("requestURL", "api/auth/current");
+        MDC.put("method", "GET");
         return ResponseEntity.ok()
                 .body(Objects
                         .requireNonNullElseGet(principal,
@@ -186,8 +186,8 @@ public class AuthController {
     @ApiOperation (value = "20/11/2022 by Vuong : logout ")
     @PostMapping ("/logout")
     public ResponseEntity<?> logoutUser() {
-        MDC.put("requestURL","api/auth/logout");
-        MDC.put("method","POST");
+        MDC.put("requestURL", "api/auth/logout");
+        MDC.put("method", "POST");
         ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, cookie.toString())

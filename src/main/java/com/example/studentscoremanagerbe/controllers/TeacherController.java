@@ -28,8 +28,8 @@ public class TeacherController {
     @GetMapping("/get-teacher")
     @ApiOperation(value = "05/12/2022 This is get teacher")
     public ResponseEntity<?> getTeacher(Principal principal) {
-        MDC.put("requestURL","api/teacher/get-teacher");
-        MDC.put("method","GET");
+        MDC.put("requestURL", "api/teacher/get-teacher");
+        MDC.put("method", "GET");
         try {
             return ResponseEntity.ok(teacherService.getTeacherById(customUserDetailsService
                     .loadUserIdByUsername(principal.getName())));
@@ -42,8 +42,8 @@ public class TeacherController {
     @PostMapping("/update-teacher")
     @ApiOperation(value = "06/12/2022 This is update information of teacher")
     public ResponseEntity<?> updateTeacher(@RequestBody UpdateTeacherRequest request){
-        MDC.put("requestURL","api/teacher/update-teacher");
-        MDC.put("method","POST");
+        MDC.put("requestURL", "api/teacher/update-teacher");
+        MDC.put("method", "POST");
         try {
             return ResponseEntity.ok(teacherService.updateTeacher(request));
         } catch (Exception e) {

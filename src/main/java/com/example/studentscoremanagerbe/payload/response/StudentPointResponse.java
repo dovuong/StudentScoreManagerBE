@@ -25,11 +25,12 @@ public class StudentPointResponse {
 
     CourseResponse course;
 
-    public StudentPointResponse(StudentPoint studentPoint){
+    public StudentPointResponse(StudentPoint studentPoint, int totalStudent){
         id = studentPoint.getId();
         point = studentPoint.getPoint();
         student = studentPoint.getStudent();
-        course = new CourseResponse(studentPoint.getCourse());
+        course = new CourseResponse(studentPoint.getCourse(), totalStudent);
+
     }
 
 

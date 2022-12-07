@@ -46,13 +46,13 @@ public class StudentService {
         List<Student> Students = studentRepository.findAllByClassRoomId(idClassroom);
         if (Students == null)
         {
-            logger.error("Get student by classroom id ='{}' failed. Cause by list students are not found"+idClassroom);
+            logger.error("Get student by classroom id ='{}' failed. Cause by list students are not found" + idClassroom);
             MDC.clear();
             return ResponseEntity.ok("List students empty");
         }
         else
         {
-            logger.info("Get student by classroom id ='{}' successfully "+idClassroom);
+            logger.info("Get student by classroom id ='{}' successfully " + idClassroom);
             MDC.clear();
             return ResponseEntity.ok(Students);
         }
@@ -63,7 +63,7 @@ public class StudentService {
         ClassRoom classRoom = classroomService.getClassRoomById(studentRequest.getIdClassroom());
         if (classRoom == null)
         {
-            logger.error("Create student failed. Cause by classroom id ={} are not found"+studentRequest.getIdClassroom());
+            logger.error("Create student failed. Cause by classroom id ={} are not found" + studentRequest.getIdClassroom());
             MDC.clear();
             return ResponseEntity.ok("List classroom  empty");
         }
@@ -86,7 +86,7 @@ public class StudentService {
      ClassRoom classRoom = classroomService.getClassRoomById(updateStudentRequest.getIdClassroom());
         if (classRoom == null)
         {
-            logger.error("Update student failed. Cause by classroom id ='{}' are not found"+updateStudentRequest.getIdClassroom());
+            logger.error("Update student failed. Cause by classroom id ='{}' are not found" + updateStudentRequest.getIdClassroom());
             MDC.clear();
             return ResponseEntity.ok("classroom empty");
         }

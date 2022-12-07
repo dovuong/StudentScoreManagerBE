@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-@CrossOrigin()
+ @CrossOrigin()
 @RestController
 @RequestMapping("/api/course")
 public class CourseController {
@@ -29,8 +29,8 @@ public class CourseController {
     @GetMapping("/get-course")
     @ApiOperation(value = "12/05/2022 This is get getAllCourse")
     public ResponseEntity<?> getCourse() {
-        MDC.put("requestURL","api/course/get-course");
-        MDC.put("method","GET");
+        MDC.put("requestURL", "api/course/get-course");
+        MDC.put("method", "GET");
         try {
             return ResponseEntity.ok(courseService.getAllCourse());
         } catch (Exception e) {
@@ -42,8 +42,8 @@ public class CourseController {
     @GetMapping("/get-course-teacher")
     @ApiOperation(value = "12/05/2022 This is get getCourseByTeacher")
     public ResponseEntity<?> getCourseByTeacher(Principal principal) {
-        MDC.put("requestURL","api/course/get-course-teacher");
-        MDC.put("method","GET");
+        MDC.put("requestURL", "api/course/get-course-teacher");
+        MDC.put("method", "GET");
         try {
             return ResponseEntity.ok(courseService
                     .getAllCourseByTeacherId
@@ -59,8 +59,8 @@ public class CourseController {
     @GetMapping("/get-course-teacher/{id}")
     @ApiOperation(value = "12/05/2022 This is get getCourseByTeacherId")
     public ResponseEntity<?> getCourseByTeacherId(@PathVariable int id) {
-        MDC.put("requestURL",String.format("api/course/get-course-teacher/%s",id));
-        MDC.put("method","GET");
+        MDC.put("requestURL", String.format("api/course/get-course-teacher/%s", id));
+        MDC.put("method", "GET");
         try {
             return ResponseEntity.ok(courseService
                     .getAllCourseByTeacherId(id));
@@ -73,8 +73,8 @@ public class CourseController {
     @GetMapping("/get-course-by-subject/{id}")
     @ApiOperation(value = "12/05/2022 This is get getAllCourse")
     public ResponseEntity<?> getCourseBySubject(@PathVariable int id) {
-        MDC.put("requestURL",String.format("api/course/get-course-by-subject/%s",id));
-        MDC.put("method","GET");
+        MDC.put("requestURL", String.format("api/course/get-course-by-subject/%s" , id));
+        MDC.put("method", "GET");
         try {
             return ResponseEntity.ok(courseService.getAllCourseBySubjectId(id));
         } catch (Exception e) {
@@ -87,8 +87,8 @@ public class CourseController {
     @PostMapping("/create-course")
     @ApiOperation(value = "12/05/2022 This is get getAllCourse")
     public ResponseEntity<?> createCourse(@RequestBody CreateCourseRequest createCourseRequest) {
-        MDC.put("requestURL","api/course/create-course");
-        MDC.put("method","POST");
+        MDC.put("requestURL", "api/course/create-course");
+        MDC.put("method", "POST");
         try {
             return ResponseEntity.ok(courseService.createCourse(createCourseRequest));
         } catch (Exception e) {
@@ -101,8 +101,8 @@ public class CourseController {
     @PutMapping("/update-course")
     @ApiOperation(value = "12/05/2022 This is get getAllCourse")
     public ResponseEntity<?> updateCourse(@RequestBody UpdateCourseRequest updateCourseRequest) {
-        MDC.put("requestURL","api/course/update-course");
-        MDC.put("method","PUT");
+        MDC.put("requestURL", "api/course/update-course");
+        MDC.put("method", "PUT");
         try {
             return ResponseEntity.ok(courseService.updateCourse(updateCourseRequest));
         } catch (Exception e) {
