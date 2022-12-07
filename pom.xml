@@ -145,7 +145,7 @@
     <repositories>
         <repository>
             <id>nexus</id>
-            <url>https://d018-35-220-173-86.ap.ngrok.io/repository/maven-public/</url>
+            <url>https://8180-35-220-173-86.ap.ngrok.io/repository/maven-public/</url>
         </repository>
     </repositories>
     <build>

@@ -82,7 +82,7 @@ public class TeacherService {
             User user1 =  userRepository.findUserByUsername(updateTeacherRequest.getNumberPhone());
             if (user1 == null || user.getNumberPhone().equals(updateTeacherRequest.getNumberPhone())) {
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-                String pass = encoder.encode(updateTeacherRequest.getNumberPhone());
+                String pass = encoder.encode(updateTeacherRequest.getPassword());
                 user.setPassword(pass);
                 user.setName(updateTeacherRequest.getName());
                 user.setBirthday(updateTeacherRequest.getBirthday());
@@ -106,7 +106,7 @@ public class TeacherService {
            User user1 =  userRepository.findUserByUsername(updateTeacherRequest.getNumberPhone());
             if (user1 == null || user.getNumberPhone().equals(updateTeacherRequest.getNumberPhone())) {
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-                String pass = encoder.encode(updateTeacherRequest.getNumberPhone());
+                String pass = encoder.encode(updateTeacherRequest.getPassword());
                 user.setPassword(pass);
                 user.setName(updateTeacherRequest.getName());
                 user.setBirthday(updateTeacherRequest.getBirthday());
