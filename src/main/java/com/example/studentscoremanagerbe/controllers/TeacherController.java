@@ -45,7 +45,7 @@ public class TeacherController {
         MDC.put("requestURL", "api/teacher/update-teacher");
         MDC.put("method", "POST");
         try {
-            return ResponseEntity.ok(teacherService.updateTeacher(request));
+            return ResponseEntity.ok(teacherService.updateProfile(request));
         } catch (Exception e) {
             Sentry.captureException(e);
             return ResponseEntity.ok().body(e);
