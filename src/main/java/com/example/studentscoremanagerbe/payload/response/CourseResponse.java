@@ -28,11 +28,14 @@ public class CourseResponse {
 
     private String subjectName;
 
-    CourseResponse(Course course) {
+    private Integer totalStudent;
+
+    public CourseResponse(Course course, Integer totalStudent) {
         id = course.getId();
         name = course.getName();
         teacherName = course.getTeacher().getName();
         subjectName = course.getSubject().getName();
+        this.totalStudent = totalStudent;
     }
 
 

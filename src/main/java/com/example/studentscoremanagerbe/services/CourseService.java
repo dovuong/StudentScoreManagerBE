@@ -5,19 +5,26 @@ import com.example.studentscoremanagerbe.model.Subject;
 import com.example.studentscoremanagerbe.model.User;
 import com.example.studentscoremanagerbe.payload.request.CreateCourseRequest;
 import com.example.studentscoremanagerbe.payload.request.UpdateCourseRequest;
+import com.example.studentscoremanagerbe.payload.response.CourseResponse;
 import com.example.studentscoremanagerbe.repositories.CourseRepository;
+import com.example.studentscoremanagerbe.repositories.StudentPointRepository;
 import com.example.studentscoremanagerbe.repositories.SubjectRepository;
 import com.example.studentscoremanagerbe.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Service
+@Slf4j
+
 public class CourseService {
     private final Logger logger = LoggerFactory.getLogger(SubjectService.class);
     @Autowired
@@ -26,6 +33,9 @@ public class CourseService {
     UserRepository userRepository;
     @Autowired
     SubjectRepository subjectRepository;
+
+    @Autowired
+    StudentPointRepository studentPointRepository;
     // create course mapping teacher and subject
     public Course createCourse(CreateCourseRequest createCourseRequest) {
         Course course = new Course();
@@ -35,7 +45,8 @@ public class CourseService {
         course.setCreatedAt(new Date());
         course.setSubject(subject);
         course.setTeacher(user);
-        logger.info("create new course by admin");
+        logger.info(String.format("Create new course name = '%s' by admin successfully", createCourseRequest.getName()));
+        MDC.clear();
         return courseRepository.save(course);
     }
     public Course updateCourse(UpdateCourseRequest updateCourseRequest) {
@@ -44,26 +55,45 @@ public class CourseService {
         course.setName(updateCourseRequest.getName());
         course.setUpdatedAt(new Date());
         course.setTeacher(user);
-        logger.info("update course by admin courseId: " + updateCourseRequest.getCourseId());
+        logger.info(String.format("Update course id = '%s' by admin successfully ", updateCourseRequest.getCourseId()));
+        MDC.clear();
         return courseRepository.save(course);
     }
-    public List<Course> getAllCourse() {
+    public List<CourseResponse> getAllCourse() {
         List<Course> courses = courseRepository.findAll();
-        logger.info("get all course");
-        return courses;
+        List<CourseResponse> courseResponses = new ArrayList<>();
+        for (Course course : courses) {
+            courseResponses.add(new CourseResponse(course, getTotalStudentOfCourse(course.getId())));
+        }
+        logger.info("Get all course successfully");
+        MDC.clear();
+        return courseResponses;
     }
-    public List<Course> getAllCourseByTeacherId(Integer teacherId) {
+    public List<CourseResponse> getAllCourseByTeacherId(Integer teacherId) {
         List<Course> courses = courseRepository.findAllByTeacherId(teacherId);
-        logger.info("getAllCourseByTeacherId: " + teacherId);
-        return courses;
+        List<CourseResponse> courseResponses = new ArrayList<>();
+        for (Course course : courses) {
+            courseResponses.add(new CourseResponse(course, getTotalStudentOfCourse(course.getId())));
+        }
+        logger.info(String.format("Get all course by teacher id = '%s' " , teacherId));
+        MDC.clear();
+        return courseResponses;
     }
-    public List<Course> getAllCourseBySubjectId(Integer subjectId) {
+    public List<CourseResponse> getAllCourseBySubjectId(Integer subjectId) {
+        List<CourseResponse> courseResponses = new ArrayList<>();
         List<Course> courses = courseRepository.findAllBySubjectId(subjectId);
-        logger.info("getAllCourseBySubjectId: " + subjectId);
-        return courses;
+        for (Course course : courses) {
+            courseResponses.add(new CourseResponse(course, getTotalStudentOfCourse(course.getId())));
+        }
+        logger.info(String.format("Get all course by subject id = '%s' " , subjectId));
+        MDC.clear();
+        return courseResponses;
     }
     void deleteCourse() {
 
+    }
+    public Integer getTotalStudentOfCourse(int courseId){
+        return studentPointRepository.countByCourseId(courseId);
     }
 
 }
