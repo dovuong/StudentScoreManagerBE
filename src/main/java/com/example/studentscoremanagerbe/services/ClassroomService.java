@@ -129,17 +129,20 @@ public class ClassroomService {
             logger.error("Create list classroom failed. Cause by faculty are not found");
             MDC.clear();
             return ResponseEntity.ok("List faculty empty");
-        }
-        for (NameCreateRequest i : listclassRoomRequest.getNameClassroom()) {
-            ClassRoom classRoom = classRoomRepository.findClassRoomByName(i.getNameClassroom());
-            if (classRoom != null) continue;
-            ClassRoom classRoom1 = new ClassRoom();
-            classRoom1.setName(i.getNameClassroom());
-            classRoom1.setFaculty(faculty);
-            ClassRoom classRoom2 = classRoomRepository.save(classRoom1);
-            logger.info(String.format("Create classroom name = '%s' successfully", classRoom2.getName()));
+        } else {
+            logger.info("Create list classroom ");
             MDC.clear();
+            for (NameCreateRequest i : listclassRoomRequest.getNameClassroom()) {
+                ClassRoom classRoom = classRoomRepository.findClassRoomByName(i.getNameClassroom());
+                if (classRoom != null) continue;
+                ClassRoom classRoom1 = new ClassRoom();
+                classRoom1.setName(i.getNameClassroom());
+                classRoom1.setFaculty(faculty);
+                ClassRoom classRoom2 = classRoomRepository.save(classRoom1);
+                logger.info(String.format("Create classroom name = '%s' successfully", classRoom2.getName()));
+            }
         }
+
         return ResponseEntity.ok("create list classRoom success!");
     }
     public ResponseEntity<?> updateListClassRoom(ListUpdateClassRequest listclassRoomRequest) {
@@ -149,20 +152,22 @@ public class ClassroomService {
             logger.error("Update list classroom failed. Cause by faculty are not found");
             MDC.clear();
             return ResponseEntity.ok("List faculty empty");
-        }
-        for (NameRequest i : listclassRoomRequest.getNameClassroom()) {
-            ClassRoom classRoom = classRoomRepository.findClassRoomByIdAndFacultyId(i.getIdClass(), listclassRoomRequest.getIdFaculty());
-            ClassRoom classRoom1 = classRoomRepository.findClassRoomByNameAndFacultyId(i.getNameClassroom(), listclassRoomRequest.getIdFaculty());
-
-            if (classRoom == null) continue;
-            if (classRoom1 != null) continue;
-            classRoom.setName(i.getNameClassroom());
-            classRoom.setFaculty(faculty);
-            ClassRoom classRoom2 = classRoomRepository.save(classRoom);
+        } else {
+            logger.info("Update list class room ");
             MDC.clear();
-            logger.info(String.format("Update classroom name = '%s' successfully", classRoom2.getName()));
-
+            for (NameRequest i : listclassRoomRequest.getNameClassroom()) {
+                ClassRoom classRoom = classRoomRepository.findClassRoomByIdAndFacultyId(i.getIdClass(), listclassRoomRequest.getIdFaculty());
+                ClassRoom classRoom1 = classRoomRepository.findClassRoomByNameAndFacultyId(i.getNameClassroom(), listclassRoomRequest.getIdFaculty());
+                if (classRoom == null) continue;
+                if (classRoom1 != null) continue;
+                classRoom.setName(i.getNameClassroom());
+                classRoom.setFaculty(faculty);
+                ClassRoom classRoom2 = classRoomRepository.save(classRoom);
+                logger.info(String.format("Update classroom name = '%s' successfully", classRoom2.getName()));
+            }
         }
+
+
         return ResponseEntity.ok("update list classRoom success!");
     }
 

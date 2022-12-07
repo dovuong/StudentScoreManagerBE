@@ -43,7 +43,10 @@ public class StudentPointService {
         if (course != null) {
             List<StudentPointResponse> studentPointResponses = new ArrayList<>();
             List<StudentPoint> studentPointList = studentPointRepository.findAllByCourseId(courseId);
+            logger.info(String.format("Get list student's point by course id= '%s'", courseId));
+            MDC.clear();
             int totalStudent = studentPointList.size();
+
             for (StudentPoint studentPoint: studentPointList) {
                 studentPointResponses.add(new StudentPointResponse(studentPoint, totalStudent));
             }
@@ -145,6 +148,8 @@ public class StudentPointService {
         }
     }
     public ResponseEntity<?> createListPoint(List<StudentPointRequest> requestList){
+        logger.info("Create list student's point");
+        MDC.clear();
         for (StudentPointRequest request: requestList) {
             Course course = courseRepository.findById(request.getCourse_id());
             Student student = studentRepository.findStudentById(request.getStudent_id());
@@ -168,6 +173,7 @@ public class StudentPointService {
                     }
                 }
                 else {
+
                     logger.error("Create student's point failed. Cause by student id = '{}' is not existed" + student.getId());
                     MDC.clear();
                     return ResponseEntity.ok("Student is not existed");
