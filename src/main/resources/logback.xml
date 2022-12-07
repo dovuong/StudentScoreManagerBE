@@ -8,6 +8,7 @@
             </filter>
         <encoder>
             <pattern>%d %level [%thread] %logger{0}: [%X{requestURL}] [%X{method}] %msg%n</pattern>
+
             <outputPatternAsHeader>true</outputPatternAsHeader>
         </encoder>
     </appender>
