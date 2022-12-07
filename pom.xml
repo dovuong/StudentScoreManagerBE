@@ -142,12 +142,12 @@
         <version>7.2</version>
     </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>nexus</id>
-            <url>https://8180-35-220-173-86.ap.ngrok.io/repository/maven-public/</url>
-        </repository>
-    </repositories>
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>nexus</id>-->
+<!--            <url>https://8180-35-220-173-86.ap.ngrok.io/repository/maven-public/</url>-->
+<!--        </repository>-->
+<!--    </repositories>-->
     <build>
         <plugins>
             <plugin>
