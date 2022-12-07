@@ -43,8 +43,9 @@ public class StudentPointService {
         if (course != null) {
             List<StudentPointResponse> studentPointResponses = new ArrayList<>();
             List<StudentPoint> studentPointList = studentPointRepository.findAllByCourseId(courseId);
+            int totalStudent = studentPointList.size();
             for (StudentPoint studentPoint: studentPointList) {
-                studentPointResponses.add(new StudentPointResponse(studentPoint));
+                studentPointResponses.add(new StudentPointResponse(studentPoint, totalStudent));
             }
             logger.info(String.format("Get list student's point by course id= '%s'", courseId));
             MDC.clear();
@@ -52,7 +53,7 @@ public class StudentPointService {
         }
         else {
 
-            logger.error("Get list student's point failed. Cause by course id '{}' not found"+courseId);
+            logger.error("Get list student's point failed. Cause by course id '{}' not found" + courseId);
             MDC.clear();
             return ResponseEntity.ok("Course is not found");
         }
@@ -63,10 +64,10 @@ public class StudentPointService {
         if (point != null) {
             logger.info(String.format("Get student's point id = '%s' ", id));
             MDC.clear();
-            return ResponseEntity.ok(new StudentPointResponse(point));
+            return ResponseEntity.ok(new StudentPointResponse(point, 0));
         }
         else {
-            logger.error("Get student's point failed. Cause by student's point id= '{}' not found"+id);
+            logger.error("Get student's point failed. Cause by student's point id= '{}' not found" + id);
             MDC.clear();
             return ResponseEntity.ok("Get student's point failed");
         }
@@ -85,24 +86,24 @@ public class StudentPointService {
                     point.setCourse(course);
                     point.setCreatedAt(new Date());
                     studentPointRepository.save(point);
-                    logger.info("Create point of student id = '{}' successfully"+student.getId());
+                    logger.info("Create point of student id = '{}' successfully" + student.getId());
                     MDC.clear();
                     return ResponseEntity.ok("create point successfully");
                 }
                 else {
-                    logger.error("Create point of student id = '{}' failed. Cause by point is existed"+student.getId());
+                    logger.error("Create point of student id = '{}' failed. Cause by point is existed" + student.getId());
                     MDC.clear();
                     return ResponseEntity.ok("Point is existed");
                 }
             }
             else {
-                logger.error("Create student's point failed. Cause by student id = '{}' is not existed",student.getId());
+                logger.error("Create student's point failed. Cause by student id = '{}' is not existed", student.getId());
                 MDC.clear();
                 return ResponseEntity.ok("Student is not existed");
             }
         }
         else {
-            logger.error("Create student's point failed. Cause by course id = '{}' is not existed",course.getId());
+            logger.error("Create student's point failed. Cause by course id = '{}' is not existed", course.getId());
             MDC.clear();
             return ResponseEntity.ok("Course is not existed");
         }
@@ -124,19 +125,19 @@ public class StudentPointService {
                     return ResponseEntity.ok("update point successfully");
                 }
                 else {
-                    logger.error("Update student's point failed. Cause by point id = '{}' is not existed",point.getId());
+                    logger.error("Update student's point failed. Cause by point id = '{}' is not existed", point.getId());
                     MDC.clear();
                     return ResponseEntity.ok("Point is not existed");
                 }
             }
             else {
-                logger.error("Update student's point failed. Cause by student id ='{}' is not existed",student.getId());
+                logger.error("Update student's point failed. Cause by student id ='{}' is not existed", student.getId());
                 MDC.clear();
                 return ResponseEntity.ok("Student is not existed");
             }
         }
         else {
-            logger.error("Update student's point failed. Cause by course id ='{}' is not existed",course.getId());
+            logger.error("Update student's point failed. Cause by course id ='{}' is not existed" , course.getId());
             MDC.clear();
             return ResponseEntity.ok("Course is not existed");
         }
@@ -159,19 +160,19 @@ public class StudentPointService {
                         MDC.clear();
                     }
                     else {
-                        logger.error("Create student's point failed. Cause by point id ='{}' is existed"+studentPoint.getId());
+                        logger.error("Create student's point failed. Cause by point id ='{}' is existed" + studentPoint.getId());
                         MDC.clear();
                         return ResponseEntity.ok("Point is existed");
                     }
                 }
                 else {
-                    logger.error("Create student's point failed. Cause by student id = '{}' is not existed"+student.getId());
+                    logger.error("Create student's point failed. Cause by student id = '{}' is not existed" + student.getId());
                     MDC.clear();
                     return ResponseEntity.ok("Student is not existed");
                 }
             }
             else {
-                logger.error("Create student's point failed. Cause by course id= '{}' is not existed"+course.getId());
+                logger.error("Create student's point failed. Cause by course id= '{}' is not existed" + course.getId());
                 MDC.clear();
                 return ResponseEntity.ok("Course is not existed");
             }
@@ -179,5 +180,7 @@ public class StudentPointService {
         return ResponseEntity.ok("create list point successfully");
 
     }
+
+
 
 }

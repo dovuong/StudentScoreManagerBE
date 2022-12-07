@@ -24,8 +24,8 @@ public class StudentPointController {
     @GetMapping("/get-list-points-by-course/{id}")
     @ApiOperation(value = "05/12/2022 This is get list student's point by course")
     public ResponseEntity<?> getListPointByCourse(@PathVariable @Valid int id){
-        MDC.put("requestURL",String.format("api/student-point/get-list-points-by-course/%s",id));
-        MDC.put("method","GET");
+        MDC.put("requestURL", String.format("api/student-point/get-list-points-by-course/%s" , id));
+        MDC.put("method", "GET");
         try {
             return studentPointService.getListPointByCourse(id);
         }
@@ -37,8 +37,8 @@ public class StudentPointController {
     @GetMapping("/get-point-by-id/{id}")
     @ApiOperation(value = "05/12/2022 This is get student's point by id")
     public ResponseEntity<?> getPointById(@PathVariable @Valid int id){
-        MDC.put("requestURL",String.format("api/student-point/get-point-by-id/%s",id));
-        MDC.put("method","GET");
+        MDC.put("requestURL", String.format("api/student-point/get-point-by-id/%s", id));
+        MDC.put("method", "GET");
         try {
             return studentPointService.getPointById(id);
         }
@@ -51,8 +51,8 @@ public class StudentPointController {
     @ApiOperation(value = "05/12/2022 This is create point by student in course ")
     public ResponseEntity<?> createPoint(@RequestBody StudentPointRequest request){
 
-        MDC.put("requestURL","api/student-point/create-point");
-        MDC.put("method","POST");
+        MDC.put("requestURL", "api/student-point/create-point");
+        MDC.put("method", "POST");
         try {
             return studentPointService.createPoint(request);
         }
@@ -66,8 +66,8 @@ public class StudentPointController {
     @ApiOperation(value = "05/12/2022 This is create point by student in course ")
     public ResponseEntity<?> createListPoint(@RequestBody List<StudentPointRequest> request){
 
-        MDC.put("requestURL","api/student-point/create-list-point");
-        MDC.put("method","POST");
+        MDC.put("requestURL", "api/student-point/create-list-point");
+        MDC.put("method", "POST");
         try {
             return studentPointService.createListPoint(request);
         }
@@ -81,8 +81,8 @@ public class StudentPointController {
     @ApiOperation(value = "05/12/2022 This is update point of student in course ")
     public ResponseEntity<?> updatePoint(@RequestBody StudentPointRequest request){
 
-        MDC.put("requestURL","api/student-point/update-point");
-        MDC.put("method","PUT");
+        MDC.put("requestURL", "api/student-point/update-point");
+        MDC.put("method", "PUT");
         try {
             return studentPointService.updatePoint(request);
         }

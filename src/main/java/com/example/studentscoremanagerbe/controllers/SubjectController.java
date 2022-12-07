@@ -23,8 +23,8 @@ public class SubjectController {
     @GetMapping("/get-all-subject")
     @ApiOperation(value = "12/05/2022 This is get getAllCourse")
     public ResponseEntity<?> getSubject() {
-        MDC.put("requestURL","api/subject/get-all-subject");
-        MDC.put("method","GET");
+        MDC.put("requestURL", "api/subject/get-all-subject");
+        MDC.put("method", "GET");
         try {
             return ResponseEntity.ok(subjectService.getAllSubject());
         } catch (Exception e) {
@@ -35,8 +35,8 @@ public class SubjectController {
     @PostMapping("/create-subject")
     @ApiOperation(value = "12/05/2022 This is get getAllCourse")
     public ResponseEntity<?> createSubject(@RequestBody CreateSubjectRequest createSubjectRequest) {
-        MDC.put("requestURL","api/subject/create-subject");
-        MDC.put("method","POST");
+        MDC.put("requestURL", "api/subject/create-subject");
+        MDC.put("method", "POST");
         try {
             return ResponseEntity.ok(subjectService.createSubject(createSubjectRequest));
         } catch (Exception e) {
@@ -47,8 +47,8 @@ public class SubjectController {
     @PutMapping("/update-subject")
     @ApiOperation(value = "12/05/2022 This is get getAllCourse")
     public ResponseEntity<?> updateSubject(@RequestBody UpdateSubjectRequest updateSubjectRequest) {
-        MDC.put("requestURL","api/subject/update-subject");
-        MDC.put("method","PUT");
+        MDC.put("requestURL", "api/subject/update-subject");
+        MDC.put("method", "PUT");
         try {
             return ResponseEntity.ok(subjectService.updateSubject(updateSubjectRequest));
         } catch (Exception e) {

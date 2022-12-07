@@ -33,8 +33,8 @@ public class FacultyController {
     @GetMapping("/all-faculty")
     @ApiOperation(value = "11/23/2022 This is get all faculties")
     public ResponseEntity<?> getAllFaculty() {
-        MDC.put("requestURL","api/all-faculty");
-        MDC.put("method","GET");
+        MDC.put("requestURL", "api/all-faculty");
+        MDC.put("method", "GET");
         try {
             return ResponseEntity.ok().body(facultyService.getAllFaculty());
         } catch (Exception e) {
@@ -47,8 +47,8 @@ public class FacultyController {
     @ApiOperation(value = "11/23/2022 This is get faculty by id")
 
     public ResponseEntity<?> getFacultyById(@PathVariable @Valid int id) {
-        MDC.put("requestURL",String.format("api/get-faculty-by-id/%s",id));
-        MDC.put("method","GET");
+        MDC.put("requestURL", String.format("api/get-faculty-by-id/%s" , id));
+        MDC.put("method", "GET");
         try {
             return ResponseEntity.ok().body(facultyService.getFacultyById(id));
         } catch (Exception e) {
@@ -61,8 +61,8 @@ public class FacultyController {
     @ApiOperation(value = "11/23/2022 This is create new faculty")
 
     public ResponseEntity<?> createFaculty(@RequestBody FacultyRequest facultyRequest) {
-        MDC.put("requestURL","api/create-faculty");
-        MDC.put("method","POST");
+        MDC.put("requestURL", "api/create-faculty");
+        MDC.put("method", "POST");
         try {
             return ResponseEntity.ok(facultyService.createFaculty(facultyRequest));
         } catch (Exception e) {
