@@ -2,7 +2,7 @@
 <!DOCTYPE configuration>
 <configuration scan="true">
     <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>35.220.173.86:4567</destination>
+        <destination>35.240.208.147:4567</destination>
             <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
                 <level>INFO</level>
             </filter>
