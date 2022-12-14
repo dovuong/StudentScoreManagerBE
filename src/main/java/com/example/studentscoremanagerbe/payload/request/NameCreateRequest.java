@@ -1,5 +1,4 @@
 package com.example.studentscoremanagerbe.payload.request;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class NameRequest {
+public class NameCreateRequest {
     private String nameClassroom;
-    private int idClass;
 }

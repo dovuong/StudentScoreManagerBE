@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class NameRequest {
-    private String nameClassroom;
-    private int idClass;
+public class StudentCourseRequest {
+    private int course_id;
+    private int student_id;
 }

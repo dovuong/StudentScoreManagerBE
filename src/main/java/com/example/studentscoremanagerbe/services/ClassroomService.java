@@ -2,13 +2,12 @@ package com.example.studentscoremanagerbe.services;
 
 import com.example.studentscoremanagerbe.model.ClassRoom;
 import com.example.studentscoremanagerbe.model.Faculty;
-import com.example.studentscoremanagerbe.payload.request.ClassroomRequest;
-import com.example.studentscoremanagerbe.payload.request.ListClassroomRequest;
-import com.example.studentscoremanagerbe.payload.request.NameRequest;
-import com.example.studentscoremanagerbe.payload.request.UpdateClassroomRequest;
+import com.example.studentscoremanagerbe.payload.request.*;
 import com.example.studentscoremanagerbe.repositories.ClassroomRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Slf4j
+
 public class ClassroomService {
     Logger logger = LoggerFactory.getLogger(ClassroomService.class);
     @Autowired
@@ -28,11 +29,13 @@ public class ClassroomService {
         if (classRooms == null)
         {
             logger.error("Get all classroom failed. Cause by list classroom are not found");
+            MDC.clear();
             return ResponseEntity.ok("List classroom empty");
         }
         else
         {
             logger.info("Get all classroom successfully ");
+            MDC.clear();
             return ResponseEntity.ok(classRooms);
         }
     }
@@ -41,12 +44,14 @@ public class ClassroomService {
         ClassRoom classRooms = classRoomRepository.findClassRoomById(id);
         if (classRooms == null)
         {
-            logger.error("Get classroom failed. Cause by list classroom are not found");
+            logger.error(String.format("Get classroom failed. Cause by classroom id = '%s' are not found", id));
+            MDC.clear();
             return null;
         }
         else
         {
-            logger.info("Get  classroom successfully ");
+            logger.info(String.format("Get classroom id = '%s' successfully", id));
+            MDC.clear();
             return classRooms;
         }
     }
@@ -55,12 +60,14 @@ public class ClassroomService {
         List<ClassRoom> classRooms = classRoomRepository.findAllByFacultyId(idFaculty);
         if (classRooms == null)
         {
-            logger.error("Get all classroom failed. Cause by list classroom are not found");
+            logger.error(String.format("Get list classroom by faculty failed. Cause by faculty id = '%s' are not found", idFaculty));
+            MDC.clear();
             return ResponseEntity.ok("List classroom empty");
         }
         else
         {
-            logger.info("Get all classroom successfully ");
+            logger.info(String.format("Get list classroom by faculty id = '%s' successfully", idFaculty));
+            MDC.clear();
             return ResponseEntity.ok(classRooms);
         }
     }
@@ -69,7 +76,8 @@ public class ClassroomService {
         Faculty  faculty = facultyService.getFacultyById1(classRoomRequest.getIdFaculty());
         if (faculty == null)
         {
-            logger.error("Get create failed. Cause by list faculty are not found");
+            logger.error("Create classroom failed. Cause by faculty are not found");
+            MDC.clear();
             return ResponseEntity.ok("List  faculty  empty");
         }
         else
@@ -81,7 +89,8 @@ public class ClassroomService {
                classRoom1.setName(classRoomRequest.getNameClassRoom());
                classRoom1.setFaculty(faculty);
                ClassRoom classRoom2 =  classRoomRepository.save(classRoom1);
-               logger.info("Create classroom name = '{}'", classRoom2.getName());
+               logger.info(String.format("Create classroom name = '%s' successfully", classRoom2.getName()));
+               MDC.clear();
                return ResponseEntity.ok("create new classroom successfully");
            }
            return ResponseEntity.ok("Classroom exist");
@@ -92,58 +101,73 @@ public class ClassroomService {
         Faculty  faculty = facultyService.getFacultyById1(updateClassroomRequest.getIdFaculty());
         if (faculty == null)
         {
-            logger.error("update failed. Cause by list faculty are not found");
+            logger.error("Update classroom failed. Cause by faculty are not found");
+            MDC.clear();
             return ResponseEntity.ok("List faculty empty");
         }
         else
         {
-            ClassRoom classRoom1 = classRoomRepository.findClassRoomByNameAndFacultyId(updateClassroomRequest.getNameClassRoom(), updateClassroomRequest.getIdFaculty());
-            if (classRoom1 != null)
+            ClassRoom classRoom1 = classRoomRepository.findClassRoomByIdAndFacultyId(updateClassroomRequest.getIdClass(), updateClassroomRequest.getIdFaculty());
+            ClassRoom classRoom = classRoomRepository.findClassRoomByNameAndFacultyId(updateClassroomRequest.getNameClassRoom(), updateClassroomRequest.getIdFaculty());
+
+            if (classRoom1 != null && classRoom == null)
             {
                 classRoom1.setName(updateClassroomRequest.getNameClassRoom());
                 classRoom1.setFaculty(faculty);
                 ClassRoom classRoom2 =  classRoomRepository.save(classRoom1);
-                logger.info("update  classroom name = '{}'", classRoom2.getName());
+                logger.info(String.format("Update classroom name = '%s' successfully", classRoom2.getName()));
+                MDC.clear();
                 return ResponseEntity.ok("update new classroom successfully");
             }
-            return ResponseEntity.ok("Classroom doesn't exist");
+            return ResponseEntity.ok("Classroom doesn't exist or name class exist");
         }
     }
     public ResponseEntity<?> createListClassRoom(ListClassroomRequest listclassRoomRequest) {
         Faculty faculty = facultyService.getFacultyById1(listclassRoomRequest.getIdFaculty());
         if (faculty == null)
         {
-            logger.error("Get create failed. Cause by list faculty are not found");
+            logger.error("Create list classroom failed. Cause by faculty are not found");
+            MDC.clear();
             return ResponseEntity.ok("List faculty empty");
+        } else {
+            logger.info("Create list classroom ");
+            MDC.clear();
+            for (NameCreateRequest i : listclassRoomRequest.getNameClassroom()) {
+                ClassRoom classRoom = classRoomRepository.findClassRoomByName(i.getNameClassroom());
+                if (classRoom != null) continue;
+                ClassRoom classRoom1 = new ClassRoom();
+                classRoom1.setName(i.getNameClassroom());
+                classRoom1.setFaculty(faculty);
+                ClassRoom classRoom2 = classRoomRepository.save(classRoom1);
+                logger.info(String.format("Create classroom name = '%s' successfully", classRoom2.getName()));
+            }
         }
-        for (NameRequest i : listclassRoomRequest.getNameClassroom()) {
-            ClassRoom classRoom = classRoomRepository.findClassRoomByName(i.getNameClassroom());
-            if (classRoom != null) continue;
-            ClassRoom classRoom1 = new ClassRoom();
-            classRoom1.setName(i.getNameClassroom());
-            classRoom1.setFaculty(faculty);
-            ClassRoom classRoom2 = classRoomRepository.save(classRoom1);
-            logger.info("Create classroom name = '{}'", classRoom2.getName());
 
-        }
         return ResponseEntity.ok("create list classRoom success!");
     }
-    public ResponseEntity<?> updateListClassRoom(ListClassroomRequest listclassRoomRequest) {
+    public ResponseEntity<?> updateListClassRoom(ListUpdateClassRequest listclassRoomRequest) {
         Faculty faculty = facultyService.getFacultyById1(listclassRoomRequest.getIdFaculty());
         if (faculty == null)
         {
-            logger.error("update failed. Cause by list faculty are not found");
+            logger.error("Update list classroom failed. Cause by faculty are not found");
+            MDC.clear();
             return ResponseEntity.ok("List faculty empty");
+        } else {
+            logger.info("Update list class room ");
+            MDC.clear();
+            for (NameRequest i : listclassRoomRequest.getNameClassroom()) {
+                ClassRoom classRoom = classRoomRepository.findClassRoomByIdAndFacultyId(i.getIdClass(), listclassRoomRequest.getIdFaculty());
+                ClassRoom classRoom1 = classRoomRepository.findClassRoomByNameAndFacultyId(i.getNameClassroom(), listclassRoomRequest.getIdFaculty());
+                if (classRoom == null) continue;
+                if (classRoom1 != null) continue;
+                classRoom.setName(i.getNameClassroom());
+                classRoom.setFaculty(faculty);
+                ClassRoom classRoom2 = classRoomRepository.save(classRoom);
+                logger.info(String.format("Update classroom name = '%s' successfully", classRoom2.getName()));
+            }
         }
-        for (NameRequest i : listclassRoomRequest.getNameClassroom()) {
-            ClassRoom classRoom = classRoomRepository.findClassRoomByNameAndFacultyId(i.getNameClassroom(), listclassRoomRequest.getIdFaculty());
-            if (classRoom == null) continue;
-            classRoom.setName(i.getNameClassroom());
-            classRoom.setFaculty(faculty);
-            ClassRoom classRoom2 = classRoomRepository.save(classRoom);
-            logger.info("update classroom name = '{}'", classRoom2.getName());
 
-        }
+
         return ResponseEntity.ok("update list classRoom success!");
     }
 

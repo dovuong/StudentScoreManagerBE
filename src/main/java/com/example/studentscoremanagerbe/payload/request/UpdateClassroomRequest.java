@@ -9,5 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UpdateClassroomRequest {
     private String nameClassRoom;
+    private int idClass;
     private int idFaculty;
 }

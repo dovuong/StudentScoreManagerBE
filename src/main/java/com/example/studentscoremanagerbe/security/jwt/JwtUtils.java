@@ -65,10 +65,10 @@ public class JwtUtils {
   public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
     String jwt = generateTokenFromUsername(userPrincipal.getUsername());
     ResponseCookie cookie = ResponseCookie
-                              .from(jwtCookie, jwt)
-                              .path(urlPath)
-                              .maxAge(86400)
-                              .httpOnly(true).build();
+            .from(jwtCookie, jwt)
+            .path(urlPath)
+            .maxAge(86400)
+            .httpOnly(true).build();
     return cookie;
   }
 
@@ -83,8 +83,8 @@ public class JwtUtils {
 
     logger.info("Jwt utils clean");
     ResponseCookie cookie = ResponseCookie
-                              .from(jwtCookie, null)
-                              .path(urlPath).build();
+            .from(jwtCookie, null)
+            .path(urlPath).build();
 
     logger.info("Jwt utils clean cookie: " + cookie);
     return cookie;
@@ -117,9 +117,9 @@ public class JwtUtils {
   public boolean validateJwtToken(String authToken) {
     try {
       Jwts
-          .parser()
-          .setSigningKey(jwtSecret)
-          .parseClaimsJws(authToken);
+              .parser()
+              .setSigningKey(jwtSecret)
+              .parseClaimsJws(authToken);
       return true;
     } catch (SignatureException e) {
       logger.error("Invalid JWT signature: {}", e.getMessage());

@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -93,38 +93,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @SuppressWarnings("checkstyle:JavadocVariable")
     private static final String[] AUTH_WHITELIST = {
-        // -- Swagger UI v2
-        "/v2/api-docs",
-        "/swagger-resources",
-        "/swagger-resources/**",
-        "/configuration/ui",
-        "/configuration/security",
-        "/swagger-ui.html",
-        "/webjars/**",
-        // -- Swagger UI v3 (OpenAPI)
-        "/v3/api-docs/**",
-        "/swagger-ui/**"
-        // other public endpoints of your API may be appended to this array
+            // -- Swagger UI v2
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            // -- Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+            // other public endpoints of your API may be appended to this array
     };
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 
         http.cors().and().csrf().disable()
-                    .exceptionHandling()
-                    .authenticationEntryPoint(unauthorizedHandler)
+                .exceptionHandling()
+                .authenticationEntryPoint(unauthorizedHandler)
                 .and()
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                    .authorizeRequests()
-                    .antMatchers(AUTH_WHITELIST).permitAll()  // whitelist Swagger UI resources
-                    // ... here goes your custom security configuration
-                    .antMatchers("/**").authenticated()  // require authentication for any endpoint that's not whitelisted
-                    .antMatchers("/api/**").permitAll()
-                    .antMatchers("/**").permitAll()
-                    .antMatchers("/api/auth/**").permitAll()
-                    .anyRequest().authenticated();
+                .authorizeRequests()
+                .antMatchers(AUTH_WHITELIST).permitAll()  // whitelist Swagger UI resources
+                // ... here goes your custom security configuration
+                .antMatchers("/**").authenticated()  // require authentication for any endpoint that's not whitelisted
+                .antMatchers("/api/**").permitAll()
+                .antMatchers("/**").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
+                .anyRequest().authenticated();
 
 
 

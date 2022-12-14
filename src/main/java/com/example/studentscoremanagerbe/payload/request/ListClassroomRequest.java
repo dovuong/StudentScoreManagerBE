@@ -10,6 +10,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class ListClassroomRequest {
-    private List<NameRequest> nameClassroom;
+    private List<NameCreateRequest> nameClassroom;
     private int idFaculty;
 }

@@ -5,9 +5,12 @@ import com.example.studentscoremanagerbe.model.User;
 import com.example.studentscoremanagerbe.repositories.RoleRepository;
 import com.example.studentscoremanagerbe.repositories.UserRepository;
 import common.UserDetailsImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,6 +26,8 @@ import java.util.Date;
  */
 @SuppressWarnings({"checkstyle:Indentation"})
 @Service
+@Slf4j
+
 public class CustomUserDetailsService implements UserDetailsService {
     Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
     @Autowired
@@ -50,6 +55,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public int loadUserIdByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo.findUserByUsername(username);
         if (user == null) {
+
             throw new UsernameNotFoundException("User not found");
         }
         return user.getId();
@@ -68,6 +74,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
+
         return user;
     }
 
@@ -93,7 +100,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             User user = userRepo.findUserByUsername(username);
             System.out.println(userRepo.findUserByUsername(username));
             if (user == null) {
-                Date date = new Date();
                 User newUser = new User();
                 newUser.setUsername(username);
                 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -101,6 +107,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 newUser.setPassword(encodedPassword);
                 Role role = roleRepository.findRoleById(roleId);
                 newUser.setRole(role);
+                newUser.setStatus(true);
                 userRepo.save(newUser);
                 logger.info("Created " + newUser.getRole().getName() + " " + newUser.getId());
                 return 1;
